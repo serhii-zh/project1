@@ -11,7 +11,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.logoTitleBlock}>
         <Logo />
-        <h2>SnickerStore</h2>
+        <h2>Everything U Need</h2>
       </div>
       <div className={styles.shoppingLoggingBlock}>
         <div className={styles.favoritesCartBlock}>
