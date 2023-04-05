@@ -1,0 +1,12 @@
+.itemsBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+}
