@@ -1,9 +1,26 @@
-import styles from './Register.module.css'
+import { useState } from 'react';
+import styles from './Register.module.css';
+import RegisterModal from './RegisterModal/RegisterModal';
 
 const Register = () => {
-  return (
-    <a href="google.com" className={styles.register}>REGISTER</a>
-  )
-}
+  const [isShown, setIsShown] = useState(false);
 
-export default Register
+  const handleClick = (isShown) => {
+    setIsShown(!isShown);
+  };
+
+  return (
+    <>
+      <a
+        href='#'
+        onClick={() => handleClick(isShown)}
+        className={styles.register}
+      >
+        REGISTER
+      </a>
+      {isShown && <RegisterModal isShown={isShown} handleClose={handleClick} />}
+    </>
+  );
+};
+
+export default Register;
