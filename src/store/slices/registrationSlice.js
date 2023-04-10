@@ -4,7 +4,7 @@ import axios from 'axios';
 const REGISTER_URL = 'https://demo-api.apiko.academy/api/auth/register';
 
 export const registerUser = createAsyncThunk(
-  'register/registerUser',
+  'registration/registerUser',
   async (userData) => {
     try {
       const response = await axios.post(REGISTER_URL, userData);
@@ -22,8 +22,8 @@ const initialState = {
   error: null,
 };
 
-export const registerSlice = createSlice({
-  name: 'register',
+export const registrationSlice = createSlice({
+  name: 'registration',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -44,7 +44,5 @@ export const registerSlice = createSlice({
   },
 });
 
-export const getRegData = (state) => state.registration.data;
-
-export const { actions } = registerSlice;
-export default registerSlice.reducer;
+export const { actions } = registrationSlice;
+export default registrationSlice.reducer;

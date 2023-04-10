@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import registerSlice from './slices/registerSlice';
+import registrationSlice from './slices/registrationSlice';
 
 const reducer = combineReducers({
-  register: registerSlice,
+  registration: registrationSlice,
 });
 
 const store = configureStore({ reducer });

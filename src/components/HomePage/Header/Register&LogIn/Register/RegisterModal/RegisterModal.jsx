@@ -5,13 +5,15 @@ import crossedEye from '../../../../../../images/crossed_eye.png';
 import styles from './RegisterModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../../../../store/slices/registerSlice';
+import { registerUser } from '../../../../../../store/slices/registrationSlice';
 import store from '../../../../../../store/store';
 
 const RegisterModal = ({ isShown, handleClose }) => {
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
   let userData = {};
+
+console.log(store.getState())
 
   const inputValidation = (evt) => {
     const inputName = evt.target.name;
