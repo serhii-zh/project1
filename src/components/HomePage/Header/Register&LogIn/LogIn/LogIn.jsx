@@ -1,6 +1,7 @@
 import styles from './LogIn.module.css';
 import { useState } from 'react';
 import LogInModal from './LogInModal/LogInModal';
+import { NavLink } from 'react-router-dom';
 
 const LogIn = () => {
   const [isShown, setIsShown] = useState(false);
@@ -10,9 +11,9 @@ const LogIn = () => {
   };
   return (
     <>
-      <a href='#' onClick={() => handleClick(isShown)} className={styles.login}>
+      <NavLink onClick={() => handleClick(isShown)} className={styles.login}>
         LOG IN
-      </a>
+      </NavLink>
       {isShown && <LogInModal isShown={isShown} handleClose={handleClick} />}
     </>
   );

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Register.module.css';
 import RegisterModal from './RegisterModal/RegisterModal';
+import { NavLink } from 'react-router-dom';
 
 const Register = () => {
   const [isShown, setIsShown] = useState(false);
@@ -11,13 +12,9 @@ const Register = () => {
 
   return (
     <>
-      <a
-        href='#'
-        onClick={() => handleClick(isShown)}
-        className={styles.register}
-      >
+      <NavLink onClick={() => handleClick(isShown)} className={styles.register}>
         REGISTER
-      </a>
+      </NavLink>
       {isShown && <RegisterModal isShown={isShown} handleClose={handleClick} />}
     </>
   );

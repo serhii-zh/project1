@@ -6,6 +6,7 @@ import styles from './LogInModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logInUser } from '../../../../../../store/slices/logInSlice';
+import { NavLink } from 'react-router-dom';
 
 const LogInModal = ({ isShown, handleClose }) => {
   const [showPassword, setShowPassword] = useState(true);
@@ -71,6 +72,7 @@ const LogInModal = ({ isShown, handleClose }) => {
   const submitData = (evt) => {
     evt.preventDefault();
     dispatch(logInUser(userData));
+    handleClose(isShown);
   };
 
   const content = (
@@ -130,7 +132,7 @@ const LogInModal = ({ isShown, handleClose }) => {
         </form>
       </div>
       <div className={styles.register}>
-        I don't have an account, <a href='#'>Register</a>
+        I don't have an account, <NavLink>Register</NavLink>
       </div>
     </>
   );
