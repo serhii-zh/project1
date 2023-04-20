@@ -6,11 +6,12 @@ import styles from './RegisterModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../../../../store/slices/registrationSlice';
+import { NavLink } from 'react-router-dom';
 
 const RegisterModal = ({ isShown, handleClose }) => {
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
-  let userData = {};
+  const userData = {};
 
   const inputValidation = (evt) => {
     const inputName = evt.target.name;
@@ -104,6 +105,7 @@ const RegisterModal = ({ isShown, handleClose }) => {
   const submitData = (evt) => {
     evt.preventDefault();
     dispatch(registerUser(userData));
+    handleClose(isShown);
   };
 
   const content = (
@@ -192,7 +194,7 @@ const RegisterModal = ({ isShown, handleClose }) => {
         </form>
       </div>
       <div className={styles.logIn}>
-        I already have an account, <a href='#'>Log In</a>
+        I already have an account, <NavLink>Log In</NavLink>
       </div>
     </>
   );
