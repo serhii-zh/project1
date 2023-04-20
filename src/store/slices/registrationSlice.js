@@ -44,5 +44,6 @@ export const registrationSlice = createSlice({
   },
 });
 
+export const registrationData = (state) => state.registration.data;
 export const { actions } = registrationSlice;
 export default registrationSlice.reducer;

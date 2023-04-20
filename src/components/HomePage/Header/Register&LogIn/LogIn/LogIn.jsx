@@ -1,9 +1,21 @@
-import styles from './LogIn.module.css'
+import styles from './LogIn.module.css';
+import { useState } from 'react';
+import LogInModal from './LogInModal/LogInModal';
 
 const LogIn = () => {
-  return (
-    <a href="google.com" className={styles.login} >LOG IN</a>
-  )
-}
+  const [isShown, setIsShown] = useState(false);
 
-export default LogIn
+  const handleClick = (isShown) => {
+    setIsShown(!isShown);
+  };
+  return (
+    <>
+      <a href='#' onClick={() => handleClick(isShown)} className={styles.login}>
+        LOG IN
+      </a>
+      {isShown && <LogInModal isShown={isShown} handleClose={handleClick} />}
+    </>
+  );
+};
+
+export default LogIn;

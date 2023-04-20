@@ -1,0 +1,103 @@
+.blurBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.logIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 35.28%;
+  right: 35.21%;
+  top: 20.37%;
+  bottom: 35.5%;
+  background-color: white;
+  box-shadow: 0px 0px 12px 0px #000000 10%;
+  border-radius: 4px;
+}
+.logIn .close {
+  align-self: flex-end;
+  margin: 10px 10px 0 0;
+  cursor: pointer;
+}
+
+.logIn form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.logIn form .inputItem {
+  display: flex;
+  flex-direction: column;
+}
+.logIn form .inputItem input {
+  height: 1.5rem;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  border: 1px solid #707070;
+  margin-top: -8px;
+}
+
+.logIn form .inputItem label {
+  font-size: 0.7rem;
+  margin-left: 10px;
+  z-index: 0;
+}
+
+.logIn form .inputItem label span {
+  visibility: hidden;
+  padding: 0 5px;
+  background-color: white;
+  color: #707070;
+}
+
+.showPassword {
+  align-self: flex-end;
+  width: 1rem;
+  margin-right: 10px;
+  margin-top: -55px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.logIn .passwordInfo {
+  margin-top: -15px;
+  font-size: 0.6rem;
+  color: #707070;
+}
+
+.logIn form input[type='submit'] {
+  margin-top: 35px;
+  background-color: #fd7114;
+  border: none;
+  color: white;
+  font-weight: bold;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.register {
+  position: absolute;
+  left: 35.21%;
+  right: 35.28%;
+  top: 66.89%;
+  bottom: 24.07%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.register a {
+  margin-left: 5px;
+  color: #fd7114;
+}
