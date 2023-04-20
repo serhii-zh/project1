@@ -6,14 +6,11 @@ import styles from './RegisterModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../../../../store/slices/registrationSlice';
-import store from '../../../../../../store/store';
 
 const RegisterModal = ({ isShown, handleClose }) => {
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
   let userData = {};
-
-console.log(store.getState())
 
   const inputValidation = (evt) => {
     const inputName = evt.target.name;
@@ -24,7 +21,7 @@ console.log(store.getState())
 
     const checkPattern = (pattern, key) => {
       if (evt.target.value.match(pattern)) {
-        userData[key] = evt.target.value;
+        userData[key] = `${evt.target.value}`;
         spanEl.style.color = '#707070';
         evt.target.style.borderColor = '#707070';
       } else {
@@ -190,7 +187,7 @@ console.log(store.getState())
           <input
             type='submit'
             value='Register'
-            onClick={(evt, userData) => submitData(evt)}
+            onClick={(evt) => submitData(evt)}
           />
         </form>
       </div>
