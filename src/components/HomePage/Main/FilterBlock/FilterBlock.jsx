@@ -15,8 +15,9 @@ const FilterBlock = () => {
         name='category-dropdown'
         id='category-dropdown'
         placeholder='Choose category'
+        defaultValue={'default'}
       >
-        <option value='' disabled selected hidden className={styles.asd}>
+        <option value='default' disabled hidden>
           Choose category
         </option>
         <option value=''>All</option>
@@ -28,8 +29,9 @@ const FilterBlock = () => {
         name='sorting-dropdown'
         id='sorting-dropdown'
         placeholder='Sorting'
+        defaultValue={'default'}
       >
-        <option value='' disabled selected hidden>
+        <option value='default' disabled hidden>
           Sorting
         </option>
         <option value='latest'>Latest</option>
