@@ -1,12 +1,25 @@
 .itemsBlock {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .itemsList {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   list-style: none;
+  overflow: auto;
+  height: 30rem;
+}
+
+.itemsBlock button {
+  background-color: #148dfd;
+  border-color: #148dfd;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  padding: 6px 16px;
 }
