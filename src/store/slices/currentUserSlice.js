@@ -16,14 +16,29 @@ export const logInUser = createAsyncThunk(
   }
 );
 
+const REGISTER_URL = 'https://demo-api.apiko.academy/api/auth/register';
+
+export const registerUser = createAsyncThunk(
+  'registration/registerUser',
+  async (userData) => {
+    try {
+      const response = await axios.post(REGISTER_URL, userData);
+      const data = response.data;
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const initialState = {
   isLoading: false,
   data: null,
   error: null,
 };
 
-export const logInSlice = createSlice({
-  name: 'logIn',
+export const currentUserSlice = createSlice({
+  name: 'currentUser',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -40,10 +55,23 @@ export const logInSlice = createSlice({
       .addCase(logInUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+        state.error = null;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
 export const logInData = (state) => state.logIn.data;
-export const { actions } = logInSlice;
-export default logInSlice.reducer;
+export const { actions } = currentUserSlice;
+export default currentUserSlice.reducer;

@@ -5,7 +5,7 @@ import crossedEye from '../../../../../../images/crossed_eye.png';
 import styles from './LogInModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logInUser } from '../../../../../../store/slices/logInSlice';
+import { logInUser } from '../../../../../../store/slices/currentUserSlice';
 import { NavLink } from 'react-router-dom';
 
 const LogInModal = ({ isShown, handleClose }) => {
