@@ -5,7 +5,7 @@ import crossedEye from '../../../../../../images/crossed_eye.png';
 import styles from './RegisterModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../../../../store/slices/registrationSlice';
+import { registerUser } from '../../../../../../store/slices/currentUserSlice';
 import { NavLink } from 'react-router-dom';
 
 const RegisterModal = ({ isShown, handleClose }) => {

@@ -1,11 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import registrationSlice from './slices/registrationSlice';
-import logInSlice from './slices/logInSlice';
+import currentUserSlice from './slices/currentUserSlice';
 import productsSlice from './slices/productsSlice';
 
 const reducer = combineReducers({
-  registration: registrationSlice,
-  logIn: logInSlice,
+  currentUser: currentUserSlice,
   products: productsSlice,
 });
 
