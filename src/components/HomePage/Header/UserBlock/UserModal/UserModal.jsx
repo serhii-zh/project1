@@ -1,10 +1,18 @@
 import { createPortal } from 'react-dom';
 import styles from './UserModal.module.css';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../../../../store/slices/currentUserSlice';
 
 const UserModal = ({ user, isShown, handleClose }) => {
+  const dispatch = useDispatch();
+
   const userFullName = user.account.fullName;
   const userEmail = user.account.email;
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
 
   const content = (
     <>
@@ -20,7 +28,9 @@ const UserModal = ({ user, isShown, handleClose }) => {
         <hr />
         <div className={styles.settingsLogOut}>
           <NavLink className={styles.settings}>Settings</NavLink>
-          <NavLink className={styles.logOut}>Log Out</NavLink>
+          <NavLink className={styles.logOut} onClick={handleLogOut}>
+            Log Out
+          </NavLink>
         </div>
       </div>
     </>
