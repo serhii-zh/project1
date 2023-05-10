@@ -72,6 +72,6 @@ export const currentUserSlice = createSlice({
   },
 });
 
-export const logInData = (state) => state.logIn.data;
+export const currentUser = (state) => state.currentUser.data;
 export const { actions } = currentUserSlice;
 export default currentUserSlice.reducer;

@@ -1,0 +1,64 @@
+.userModalBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.userModal {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 8.5%;
+  left: 78%;
+  right: 7%;
+  bottom: 73%;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.userNameEmail {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px 10px 20px;
+}
+
+.userName {
+  margin-bottom: 5px;
+}
+
+.userEmail {
+  color: #707070;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 98%;
+  background-color: #e4e4e4;
+  height: 1px;
+}
+
+.settingsLogOut {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px 15px 20px;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.settings {
+  text-decoration: none;
+  color: black;
+  /* margin-bottom: 10px; */
+}
+
+.logOut {
+  text-decoration: none;
+  color: #f44336;
+}
