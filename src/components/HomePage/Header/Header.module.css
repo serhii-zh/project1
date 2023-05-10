@@ -20,11 +20,7 @@
 }
 
 .favoritesCartBlock {
-    display: flex;
-    margin-right: 2rem;
-}
-
-.registrationLogInBlock {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
 }

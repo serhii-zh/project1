@@ -2,11 +2,14 @@ import Favorites from './Favorites&ShoppingCart/Favorites/Favorites';
 import ShoppingCart from './Favorites&ShoppingCart/ShoppingCart/ShoppingCart';
 import styles from './Header.module.css';
 import Logo from './Logo/Logo';
-import LogIn from './Register&LogIn/LogIn/LogIn';
-import Register from './Register&LogIn/Register/Register';
-import delimiter from '../../../images/vertical_bar.png';
+import { useSelector } from 'react-redux';
+import { currentUser } from '../../../store/slices/currentUserSlice';
+import RegisterLogin from './Register&LogIn/RegisterLogin';
+import UserBlock from './UserBlock/UserBlock';
 
 const Header = () => {
+  const user = useSelector(currentUser);
+
   return (
     <header className={styles.header}>
       <div className={styles.logoTitleBlock}>
@@ -18,11 +21,7 @@ const Header = () => {
           <Favorites />
           <ShoppingCart />
         </div>
-        <div className={styles.registrationLogInBlock}>
-          <Register />
-          <img src={delimiter} alt='delimiter' />
-          <LogIn />
-        </div>
+        {user ? <UserBlock /> : <RegisterLogin />}
       </div>
     </header>
   );

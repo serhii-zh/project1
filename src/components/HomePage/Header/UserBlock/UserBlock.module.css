@@ -1,0 +1,23 @@
+.userBlock {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.initials {
+  margin-left: 15px;
+  margin-right: 10px;
+  background-color: #dedee0;
+  color: black;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fd7114;
+  border-radius: 50px;
+}
+
+.optionsBtn {
+    cursor: pointer;
+}
