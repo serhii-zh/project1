@@ -1,5 +1,5 @@
 import styles from './Item.module.css';
-import heartInactive from '../../../../../images/heart_inactive.png';
+import heartInactive from '../../../../../../images/heart_inactive.png';
 
 const Item = ({ imageUrl, title, price }) => {
   if (title.length > 20) {

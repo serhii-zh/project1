@@ -1,13 +1,13 @@
-import FilterBlock from './FilterBlock/FilterBlock';
-import ItemsBlock from './ItemsBlock/ItemsBlock';
-import styles from './Main.module.css';
+import { Route, Routes } from 'react-router-dom';
+import Products from './Products/Products';
+import UserSettings from './UserSettings/UserSettings';
 
 const Main = () => {
   return (
-    <main className={styles.main}>
-      <FilterBlock />
-      <ItemsBlock />
-    </main>
+    <Routes>
+      <Route path='/' element={<Products />} />
+      <Route path='/settings/*' element={<UserSettings />} />
+    </Routes>
   );
 };
 
