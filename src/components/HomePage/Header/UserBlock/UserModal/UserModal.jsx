@@ -27,7 +27,13 @@ const UserModal = ({ user, isShown, handleClose }) => {
         </div>
         <hr />
         <div className={styles.settingsLogOut}>
-          <NavLink className={styles.settings}>Settings</NavLink>
+          <NavLink
+            to='/settings'
+            className={styles.settings}
+            onClick={() => handleClose(isShown)}
+          >
+            Settings
+          </NavLink>
           <NavLink className={styles.logOut} onClick={handleLogOut}>
             Log Out
           </NavLink>

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import {
   fetchProducts,
   products,
-} from '../../../../store/slices/productsSlice';
+} from '../../../../../store/slices/productsSlice';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
