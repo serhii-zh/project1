@@ -6,7 +6,6 @@ import { logOut } from '../../../../../store/slices/currentUserSlice';
 
 const UserModal = ({ user, isShown, handleClose }) => {
   const dispatch = useDispatch();
-
   const userFullName = user.account.fullName;
   const userEmail = user.account.email;
 
@@ -28,7 +27,7 @@ const UserModal = ({ user, isShown, handleClose }) => {
         <hr />
         <div className={styles.settingsLogOut}>
           <NavLink
-            to='/settings'
+            to='/settings/edit'
             className={styles.settings}
             onClick={() => handleClose(isShown)}
           >

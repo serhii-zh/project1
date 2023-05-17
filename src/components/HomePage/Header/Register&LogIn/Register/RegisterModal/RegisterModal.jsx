@@ -132,6 +132,7 @@ const RegisterModal = ({ isShown, handleClose }) => {
               onFocus={(evt) => showLabel(evt)}
               onBlur={(evt) => showMissingInfoMessage(evt)}
               required
+              autoFocus
             />
           </div>
           <div className={styles.inputItem}>

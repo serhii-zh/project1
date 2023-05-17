@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { currentUser } from '../../../../store/slices/currentUserSlice';
 import showOptions from '../../../../images/down_smbl.png';
 import styles from './UserBlock.module.css';
@@ -8,9 +7,7 @@ import { useState } from 'react';
 const UserBlock = () => {
   const [isShown, setIsShown] = useState(false);
 
-  const user = useSelector(currentUser);
-
-  const fullName = user.account.fullName;
+  const fullName = currentUser.account.fullName;
   const fullNameByWords = fullName.split(' ');
   const firstName = fullNameByWords[0];
   const lastName = fullNameByWords[fullNameByWords.length - 1];
@@ -36,7 +33,7 @@ const UserBlock = () => {
       />
       {isShown && (
         <UserModal
-          user={user}
+          user={currentUser}
           isShown={isShown}
           handleClose={handleOptionsClick}
         />
