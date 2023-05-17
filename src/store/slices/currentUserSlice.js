@@ -9,6 +9,7 @@ export const logInUser = createAsyncThunk(
     try {
       const response = await axios.post(LOG_IN_URL, userData);
       const data = response.data;
+      localStorage.setItem('currentUser', JSON.stringify(data)); // add data to local storage
       return data;
     } catch (err) {
       return err.message;
@@ -24,6 +25,7 @@ export const registerUser = createAsyncThunk(
     try {
       const response = await axios.post(REGISTER_URL, userData);
       const data = response.data;
+      localStorage.setItem('currentUser', JSON.stringify(data)); // add data to local storage
       return data;
     } catch (err) {
       return err.message;
@@ -43,6 +45,7 @@ export const currentUserSlice = createSlice({
   reducers: {
     logOut(state) {
       state.data = null;
+      localStorage.removeItem('currentUser'); // remove data from local storage
     },
   },
   extraReducers: (builder) => {
@@ -76,6 +79,7 @@ export const currentUserSlice = createSlice({
   },
 });
 
-export const currentUser = (state) => state.currentUser.data;
+// export const currentUser = (state) => state.currentUser.data;
+export const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 export const { logOut } = currentUserSlice.actions;
 export default currentUserSlice.reducer;

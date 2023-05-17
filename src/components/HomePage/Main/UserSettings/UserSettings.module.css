@@ -25,20 +25,3 @@
 .fullName {
   margin-bottom: 60px;
 }
-
-.menu {
-  margin-bottom: 60px;
-}
-
-.menu a {
-  text-decoration: none;
-  border: 1px solid #dedee0;
-  border-radius: 4px;
-  padding: 1.5rem;
-  color: black;
-}
-
-.menu a:focus {
-  background-color: #fd7114;
-  color: white;
-}

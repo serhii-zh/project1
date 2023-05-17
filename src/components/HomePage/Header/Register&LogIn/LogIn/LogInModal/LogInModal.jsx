@@ -98,6 +98,7 @@ const LogInModal = ({ isShown, handleClose }) => {
               onChange={(evt) => inputValidation(evt)}
               onFocus={(evt) => showLabel(evt)}
               required
+              autoFocus
             />
           </div>
 
