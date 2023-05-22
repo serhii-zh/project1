@@ -22,6 +22,7 @@ const REGISTER_URL = 'https://demo-api.apiko.academy/api/auth/register';
 export const registerUser = createAsyncThunk(
   'registration/registerUser',
   async (userData) => {
+    console.log(userData);
     try {
       const response = await axios.post(REGISTER_URL, userData);
       const data = response.data;
@@ -80,6 +81,6 @@ export const currentUserSlice = createSlice({
 });
 
 // export const currentUser = (state) => state.currentUser.data;
-export const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+export const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 export const { logOut } = currentUserSlice.actions;
 export default currentUserSlice.reducer;

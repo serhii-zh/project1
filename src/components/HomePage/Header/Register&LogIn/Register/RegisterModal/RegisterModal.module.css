@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-.register form {
+/* .register form {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -57,7 +57,7 @@
   padding: 0 5px;
   background-color: white;
   color: #707070;
-}
+} */
 
 .showPassword {
   align-self: flex-end;
@@ -68,7 +68,7 @@
   cursor: pointer;
 }
 
-.register .passwordInfo {
+/* .register .passwordInfo {
   margin-top: -15px;
   font-size: 0.6rem;
   color: #707070;
@@ -82,7 +82,8 @@
   font-weight: bold;
   height: 2rem;
   cursor: pointer;
-}
+} */
+
 .logIn {
   position: absolute;
   left: 35.21%;
