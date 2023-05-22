@@ -1,63 +1,59 @@
 import { createPortal } from 'react-dom';
 import close from '../../../../../../images/close.png';
-import eye from '../../../../../../images/eye.png';
-import crossedEye from '../../../../../../images/crossed_eye.png';
 import styles from './RegisterModal.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../../../../store/slices/currentUserSlice';
 import { NavLink } from 'react-router-dom';
+import FormComponent from '../../../../../Form/FormComponent';
 
 const RegisterModal = ({ isShown, handleClose }) => {
+  const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
-  const userData = {};
 
-  const inputValidation = (evt) => {
-    const inputName = evt.target.name;
+  const showLabel = (evt) => {
+    const parentDiv = evt.target.closest('div');
+    const pElement = parentDiv.querySelector('p');
+    pElement.innerText = '';
+    evt.target.placeholder = '';
+    const spanEl = parentDiv.children[0].children[0];
+    spanEl.style.visibility = 'visible';
+  };
+
+  const validateInputValue = (evt) => {
     const parentDiv = evt.target.closest('div');
     const spanEl = parentDiv.children[0].children[0];
-    let pattern;
-    let key;
+    const pattern = evt.target.pattern;
 
-    const checkPattern = (pattern, key) => {
-      if (evt.target.value.match(pattern)) {
-        userData[key] = `${evt.target.value}`;
-        spanEl.style.color = '#707070';
-        evt.target.style.borderColor = '#707070';
-      } else {
-        evt.target.style.borderColor = 'red';
-        spanEl.style.color = 'red';
-      }
-    };
+    if (evt.target.value.match(pattern)) {
+      setFormData({
+        ...formData,
+        [evt.target.name]: evt.target.value,
+      });
 
-    switch (inputName) {
-      case 'name': //should contain only letters
-        key = 'fullName';
-        pattern = /^[a-zA-Z\s]+$/;
-        checkPattern(pattern, key);
-        break;
+      spanEl.style.color = '#707070';
+      evt.target.style.borderColor = '#707070';
+    } else {
+      spanEl.style.color = 'red';
+      evt.target.style.borderColor = 'red';
+    }
+  };
 
-      case 'email': // should contain '@' and '.'
-        key = 'email';
-        pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-        checkPattern(pattern, key);
-        break;
+  const checkForMissingData = (evt) => {
+    const parentDiv = evt.target.closest('div');
+    const spanEl = parentDiv.children[0].children[0];
+    const pElement = parentDiv.querySelector('p');
 
-      case 'phone': //should contain 10-14 digits and optional '+' in the beginning
-        key = 'phone';
-        pattern = /^(\+)?([0-9]){10,14}$/;
-        checkPattern(pattern, key);
-        break;
-
-      case 'password': // should contain at least 1 letter, 1 special symbol, 1 digit
-        key = 'password';
-        pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/;
-        checkPattern(pattern, key);
-        break;
-
-      default:
-        break;
+    if (!evt.target.value) {
+      pElement.innerText = '';
+      pElement.innerText = 'The required data is missing';
+      pElement.style.color = 'red';
+      evt.target.style.borderColor = 'red';
+      spanEl.style.color = 'red';
+      parentDiv.append(pElement);
+    } else {
+      pElement.innerText = '';
     }
   };
 
@@ -72,41 +68,63 @@ const RegisterModal = ({ isShown, handleClose }) => {
     }
   };
 
-  const showLabel = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const existingP = parentDiv.querySelector('p');
-    existingP && existingP.remove();
-    evt.target.placeholder = '';
-    const spanEl = parentDiv.children[0].children[0];
-    spanEl.style.visibility = 'visible';
-  };
-
-  const showMissingInfoMessage = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const spanEl = parentDiv.children[0].children[0];
-    const pElement = document.createElement('p');
-    const existingP = parentDiv.querySelector('p');
-
-    if (!evt.target.value) {
-      existingP && existingP.remove();
-      pElement.innerText = 'The required data is missing';
-      pElement.style.color = 'red';
-      pElement.style.marginTop = '-20px';
-      pElement.style.marginBottom = '5px';
-      pElement.style.fontSize = '0.7rem';
-      evt.target.style.borderColor = 'red';
-      spanEl.style.color = 'red';
-      parentDiv.append(pElement);
-    } else {
-      existingP && existingP.remove();
-    }
-  };
-
-  const submitData = (evt) => {
+  const submitFormData = (evt) => {
     evt.preventDefault();
-    dispatch(registerUser(userData));
+    dispatch(registerUser(formData));
     handleClose(isShown);
   };
+
+  const fields1 = [
+    {
+      type: 'text',
+      name: 'fullName',
+      placeholder: 'Full Name',
+      pattern: '^[a-zA-Z\\s]*$',
+      autofocus: true,
+      required: true,
+      onChange: validateInputValue,
+      onFocus: showLabel,
+      onBlur: checkForMissingData,
+    },
+    {
+      type: 'email',
+      name: 'email',
+      placeholder: 'Email',
+      pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
+      required: true,
+      onChange: validateInputValue,
+      onFocus: showLabel,
+      onBlur: checkForMissingData,
+    },
+    {
+      type: 'tel',
+      name: 'phone',
+      placeholder: 'Telephone Number',
+      pattern: '^(\\+)?([0-9]){10,14}$',
+      required: true,
+      onChange: validateInputValue,
+      onFocus: showLabel,
+      onBlur: checkForMissingData,
+    },
+    {
+      type: 'password',
+      name: 'password',
+      placeholder: 'Password',
+      pattern: '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,35}$',
+      required: true,
+      message:
+        'The password should contain 1 letter, 1 special symbol, 1 number',
+      onChange: validateInputValue,
+      onFocus: showLabel,
+      onBlur: checkForMissingData,
+      handleShowPassword,
+    },
+    {
+      type: 'submit',
+      name: 'registerUser',
+      value: 'Register',
+    },
+  ];
 
   const content = (
     <>
@@ -119,80 +137,11 @@ const RegisterModal = ({ isShown, handleClose }) => {
           onClick={() => handleClose(isShown)}
         />
         <h3>Register</h3>
-        <form action=''>
-          <div className={styles.inputItem}>
-            <label htmlFor='name'>
-              <span>Full Name</span>
-            </label>
-            <input
-              type='text'
-              name='name'
-              placeholder='Full Name'
-              onChange={(evt) => inputValidation(evt)}
-              onFocus={(evt) => showLabel(evt)}
-              onBlur={(evt) => showMissingInfoMessage(evt)}
-              required
-              autoFocus
-            />
-          </div>
-          <div className={styles.inputItem}>
-            <label htmlFor='email'>
-              <span>Email</span>
-            </label>
-            <input
-              type='email'
-              name='email'
-              placeholder='Email'
-              onChange={(evt) => inputValidation(evt)}
-              onFocus={(evt) => showLabel(evt)}
-              onBlur={(evt) => showMissingInfoMessage(evt)}
-              required
-            />
-          </div>
-          <div className={styles.inputItem}>
-            <label htmlFor='phone'>
-              <span>Telephone Number</span>
-            </label>
-            <input
-              type='tel'
-              name='phone'
-              placeholder='Telephone Number'
-              onChange={(evt) => inputValidation(evt)}
-              onFocus={(evt) => showLabel(evt)}
-              onBlur={(evt) => showMissingInfoMessage(evt)}
-              required
-            />
-          </div>
-          <div className={styles.inputItem}>
-            <label htmlFor='password'>
-              <span>Password</span>
-            </label>
-            <input
-              id='password'
-              type='password'
-              name='password'
-              placeholder='Password'
-              onChange={(evt) => inputValidation(evt)}
-              onFocus={(evt) => showLabel(evt)}
-              onBlur={(evt) => showMissingInfoMessage(evt)}
-              required
-            />
-            <img
-              src={showPassword ? eye : crossedEye}
-              alt='Show/hide password'
-              className={styles.showPassword}
-              onClick={() => handleShowPassword()}
-            />
-            <p className={styles.passwordInfo}>
-              The password should contain 1 letter, 1special symbol, 1 number
-            </p>
-          </div>
-          <input
-            type='submit'
-            value='Register'
-            onClick={(evt) => submitData(evt)}
-          />
-        </form>
+        <FormComponent
+          fields={fields1}
+          showPassword={showPassword}
+          submitFormData={submitFormData}
+        />
       </div>
       <div className={styles.logIn}>
         I already have an account, <NavLink>Log In</NavLink>

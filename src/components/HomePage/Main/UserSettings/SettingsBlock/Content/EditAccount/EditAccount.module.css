@@ -1,9 +1,12 @@
 .section {
   display: flex;
   flex-direction: column;
+  width: 22rem;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
-.section form {
-  display: flex;
-  flex-direction: column;
+.section .sectionTitle {
+  align-self: flex-start;
+  margin-bottom: 20px;
 }
