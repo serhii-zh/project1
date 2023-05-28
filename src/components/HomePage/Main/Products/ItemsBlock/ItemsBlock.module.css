@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 100px;
 }
 
 .itemsList {
@@ -11,11 +12,13 @@
   flex-wrap: wrap;
   gap: 10px;
   list-style: none;
-  overflow: auto;
-  height: 30rem;
+  z-index: -1;
+  /* margin-bottom: 40px; */
+  /* height: 30rem; */
 }
 
 .itemsBlock button {
+  position: relative;
   background-color: #148dfd;
   border-color: #148dfd;
   border-radius: 4px;

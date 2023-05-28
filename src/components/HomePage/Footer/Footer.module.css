@@ -1,9 +1,12 @@
 .footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
-    width: 100%;
-    background-color: #F1F1F3;
-    color: darkgrey;
+  display: flex;
+  position: fixed;
+  bottom: 0px;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  background-color: #f1f1f3;
+  color: darkgrey;
+  flex-shrink: 0;
 }
