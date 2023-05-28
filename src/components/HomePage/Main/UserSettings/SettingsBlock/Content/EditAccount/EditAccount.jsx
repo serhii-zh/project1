@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 const EditAccount = () => {
   const [formData, setFormData] = useState({});
-  // const [passwordData, setPasswordData] = useState({});
 
   const showLabel = (evt) => {
     const parentDiv = evt.target.closest('div');

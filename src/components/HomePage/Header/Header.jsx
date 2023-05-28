@@ -7,6 +7,7 @@ import RegisterLogin from './Register&LogIn/RegisterLogin';
 import UserBlock from './UserBlock/UserBlock';
 
 const Header = () => {
+
   return (
     <header className={styles.header}>
       <div className={styles.logoTitleBlock}>
