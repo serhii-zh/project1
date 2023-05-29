@@ -21,6 +21,15 @@ const ItemsBlock = () => {
     dispatch(fetchProducts({ limit, offset }));
   }, [dispatch, offset, limit]);
 
+  useEffect(() => {
+    const footerElement = document.getElementById('footer');
+    const footerPosition = footerElement.offsetTop;
+    window.scrollTo({
+      top: footerPosition,
+      behavior: 'smooth',
+    });
+  });
+
   const showNextPage = () => {
     setCurrentPage(currentPage + 1);
     setOffset(offset + 12);
