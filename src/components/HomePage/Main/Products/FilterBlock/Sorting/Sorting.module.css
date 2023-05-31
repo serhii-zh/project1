@@ -1,0 +1,17 @@
+.sorting {
+  flex: 1;
+  margin: 0 20px;
+  color: #75778f;
+  background: url('../../../../../../images/sorting.png') no-repeat 2% 50%;
+  padding: 5px;
+  padding-left: 35px;
+  height: 1.7rem;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  border: 1px solid #dedee0;
+  border-radius: 5px;
+}
+
+option:not(:first-of-type) {
+  color: black;
+}
