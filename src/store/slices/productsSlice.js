@@ -16,10 +16,18 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-export const clearData = createAsyncThunk(
-  'products/clearData',
-  async (dispatch) => {
-    dispatch(clearData());
+export const findProducts = createAsyncThunk(
+  'products/findProducts',
+  async (params) => {
+    const searchUrl = `https://demo-api.apiko.academy/api/products/search`;
+
+    try {
+      const response = await axios.get(searchUrl, { params });
+      const data = response.data;
+      return data;
+    } catch (err) {
+      return err.message;
+    }
   }
 );
 
@@ -47,12 +55,23 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        // debugger
         state.data = state.data.concat(action.payload);
-        // state.data = action.payload;
         state.error = null;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(findProducts.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(findProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.concat(action.payload);
+        state.error = null;
+      })
+      .addCase(findProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
@@ -60,5 +79,5 @@ export const productsSlice = createSlice({
 });
 
 export const products = (state) => state.products.data;
-export const { actions } = productsSlice;
+export const { clearData } = productsSlice.actions;
 export default productsSlice.reducer;
