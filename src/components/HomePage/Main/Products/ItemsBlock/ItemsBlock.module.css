@@ -14,13 +14,3 @@
   list-style: none;
   z-index: -1;
 }
-
-.itemsBlock button {
-  position: relative;
-  background-color: #148dfd;
-  border-color: #148dfd;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
-  padding: 6px 16px;
-}
