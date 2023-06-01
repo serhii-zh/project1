@@ -5,18 +5,23 @@ import {
   findProducts,
 } from '../../../../../../store/slices/productsSlice';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [keywords, setKeywords] = useState('');
-  const [limit] = useState(12);
-  const [offset, setOffset] = useState(0);
+  const [value, setValue] = useState('');
+  // const [limit] = useState(12);
+  // const [offset, setOffset] = useState(0);
 
   const handleSearch = () => {
     dispatch(clearData());
-    dispatch(findProducts({ keywords, limit, offset }));
+    // dispatch(findProducts({ keywords, limit, offset }));
+    navigate(`/?keywords=${value}
+    `);
   };
+  // &limit=${limit}&offset=${offset}
 
   return (
     <input
@@ -26,7 +31,7 @@ const Search = () => {
       id='search-field'
       placeholder='Search products by name'
       onKeyUp={(evt) => {
-        setKeywords(evt.target.value);
+        setValue(evt.target.value);
         evt.key === 'Enter' && handleSearch();
       }}
     />

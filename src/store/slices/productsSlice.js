@@ -24,6 +24,7 @@ export const findProducts = createAsyncThunk(
     try {
       const response = await axios.get(searchUrl, { params });
       const data = response.data;
+
       return data;
     } catch (err) {
       return err.message;

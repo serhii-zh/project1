@@ -3,13 +3,20 @@ import Item from './Item/Item';
 import styles from './ItemsBlock.module.css';
 import { useEffect, useState } from 'react';
 import {
+  clearData,
   fetchProducts,
+  findProducts,
   products,
 } from '../../../../../store/slices/productsSlice';
+import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
+import { useLocation } from 'react-router-dom';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
+  const { search } = useLocation();
+
+  const [keywords, setKeywords] = useState('');
 
   const [limit] = useState(12);
   const [offset, setOffset] = useState(0);
@@ -18,8 +25,15 @@ const ItemsBlock = () => {
   const pages = items.length > 0 && Math.ceil(items[0].id / 12);
 
   useEffect(() => {
-    dispatch(fetchProducts({ limit, offset }));
-  }, [dispatch, offset, limit]);
+    const queryParams = new URLSearchParams(search);
+    if (search.includes('keywords')) {
+      setKeywords(queryParams.get('keywords'));
+      // debugger;
+      dispatch(findProducts({ keywords, limit, offset }));
+    } else {
+      dispatch(fetchProducts({ limit, offset }));
+    }
+  }, [dispatch, offset, limit, search, keywords]);
 
   useEffect(() => {
     const footerElement = document.getElementById('footer');
@@ -45,9 +59,7 @@ const ItemsBlock = () => {
             </li>
           ))}
       </ul>
-      {currentPage < pages && (
-        <button onClick={() => showNextPage()}>Load more...</button>
-      )}
+      {currentPage < pages && <ShowMoreButton onClickFnc={showNextPage} />}
     </div>
   );
 
