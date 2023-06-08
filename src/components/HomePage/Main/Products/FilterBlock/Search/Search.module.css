@@ -9,4 +9,12 @@
   background-color: #f9fafb;
   border: 1px solid #dedee0;
   border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.focused {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  padding-left: 50px;
 }

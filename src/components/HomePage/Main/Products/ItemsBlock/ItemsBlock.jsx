@@ -3,21 +3,19 @@ import Item from './Item/Item';
 import styles from './ItemsBlock.module.css';
 import { useEffect, useState } from 'react';
 import {
-  clearData,
   fetchProducts,
   findProducts,
   products,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
-  const { search } = useLocation();
+  const [queryParams] = useSearchParams();
 
-  const [keywords, setKeywords] = useState('');
-
+  const keywords = queryParams.get('keywords');
   const [limit] = useState(12);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,15 +23,12 @@ const ItemsBlock = () => {
   const pages = items.length > 0 && Math.ceil(items[0].id / 12);
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(search);
-    if (search.includes('keywords')) {
-      setKeywords(queryParams.get('keywords'));
-      // debugger;
+    if (keywords) {
       dispatch(findProducts({ keywords, limit, offset }));
     } else {
       dispatch(fetchProducts({ limit, offset }));
     }
-  }, [dispatch, offset, limit, search, keywords]);
+  }, [dispatch, offset, limit, keywords]);
 
   useEffect(() => {
     const footerElement = document.getElementById('footer');
@@ -51,6 +46,7 @@ const ItemsBlock = () => {
 
   const content = (
     <div className={styles.itemsBlock}>
+      {items.length === 0 && `No Results Found`}
       <ul className={styles.itemsList}>
         {items.length > 0 &&
           items.map((p) => (
