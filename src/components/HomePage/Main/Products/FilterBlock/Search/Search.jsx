@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
 import styles from './Search.module.css';
-import { clearData } from '../../../../../../store/slices/productsSlice';
+import { clearData, changeKeywords } from '../../../../../../store/slices/productsSlice';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [focused, setFocused] = useState(false);
 
@@ -20,10 +20,13 @@ const Search = () => {
   const handleSearch = useCallback(
     (value) => {
       dispatch(clearData());
-      navigate(`/?keywords=${value}
-    `);
+      // navigate(`/?keywords=${value}`);
+      // debugger
+      dispatch(changeKeywords(value))
     },
-    [dispatch, navigate]
+    [dispatch, 
+      // navigate
+    ]
   );
 
   const handleChange = useCallback(
@@ -32,11 +35,14 @@ const Search = () => {
       if (value.length >= 3) {
         handleSearch(value);
       } else if (value.length === 0) {
-        navigate('/');
+        // navigate('/');
         dispatch(clearData());
+        dispatch(changeKeywords(''))
       }
     },
-    [dispatch, handleSearch, navigate]
+    [dispatch, handleSearch, 
+      // navigate
+    ]
   );
 
   const debouncedChangeHandler = useMemo(
