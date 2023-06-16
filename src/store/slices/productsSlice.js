@@ -36,6 +36,7 @@ const initialState = {
   isLoading: false,
   data: [],
   error: null,
+  offset: 0, //new entry
 };
 
 export const productsSlice = createSlice({
@@ -46,6 +47,10 @@ export const productsSlice = createSlice({
       state.isLoading = false;
       state.data = [];
       state.error = null;
+      state.offset = 0; //new entry
+    },
+    increaseOffsetBy12: (state) => {
+      state.offset += 12; // new entry
     },
   },
   extraReducers: (builder) => {
@@ -80,5 +85,6 @@ export const productsSlice = createSlice({
 });
 
 export const products = (state) => state.products.data;
-export const { clearData } = productsSlice.actions;
+export const offsetValue = (state) => state.products.offset; //new entry
+export const { clearData, increaseOffsetBy12 } = productsSlice.actions;
 export default productsSlice.reducer;
