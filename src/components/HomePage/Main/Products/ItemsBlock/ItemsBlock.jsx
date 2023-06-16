@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import {
   fetchProducts,
   findProducts,
+  increaseOffsetBy12,
+  offsetValue,
   products,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
@@ -13,17 +15,18 @@ import { useSearchParams } from 'react-router-dom';
 const ItemsBlock = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
+  const offset = useSelector(offsetValue);
   const [queryParams] = useSearchParams();
 
   const keywords = queryParams.get('keywords');
   const [limit] = useState(12);
-  const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   const pages = items.length > 0 && Math.ceil(items[0].id / 12);
 
   useEffect(() => {
     if (keywords) {
+      debugger;
       dispatch(findProducts({ keywords, limit, offset }));
     } else {
       dispatch(fetchProducts({ limit, offset }));
@@ -41,7 +44,7 @@ const ItemsBlock = () => {
 
   const showNextPage = () => {
     setCurrentPage(currentPage + 1);
-    setOffset(offset + 12);
+    dispatch(increaseOffsetBy12());
   };
 
   const content = (
