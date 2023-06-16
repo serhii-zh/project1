@@ -26,7 +26,6 @@ const ItemsBlock = () => {
 
   useEffect(() => {
     if (keywords) {
-      debugger;
       dispatch(findProducts({ keywords, limit, offset }));
     } else {
       dispatch(fetchProducts({ limit, offset }));
