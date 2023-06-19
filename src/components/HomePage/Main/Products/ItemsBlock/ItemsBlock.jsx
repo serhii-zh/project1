@@ -11,15 +11,12 @@ import {
   products,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
-// import { useSearchParams } from 'react-router-dom';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
   const offset = useSelector(offsetValue);
-  // const [queryParams] = useSearchParams();
 
-  // const keywords = queryParams.get('keywords');
   const keywords = useSelector(searchKeywords);
   const [limit] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,22 +24,18 @@ const ItemsBlock = () => {
   const pages = items.length > 0 && Math.ceil(items[0].id / 12);
 
   useEffect(() => {
-    if (
-      // keywords
-      keywords
-      ) {
-        // debugger
-      dispatch(findProducts({ 
-        // keywords
-        keywords
-        , limit, offset }));
+    if (keywords) {
+      dispatch(
+        findProducts({
+          keywords,
+          limit,
+          offset,
+        })
+      );
     } else {
       dispatch(fetchProducts({ limit, offset }));
     }
-  }, [dispatch, offset, limit, 
-    // keywords
-    keywords
-  ]);
+  }, [dispatch, offset, limit, keywords]);
 
   useEffect(() => {
     const footerElement = document.getElementById('footer');

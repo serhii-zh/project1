@@ -36,8 +36,8 @@ const initialState = {
   isLoading: false,
   data: [],
   error: null,
-  offset: 0, //new entry
-  keywords: '', //newer entry
+  offset: 0,
+  keywords: '',
 };
 
 export const productsSlice = createSlice({
@@ -48,13 +48,13 @@ export const productsSlice = createSlice({
       state.isLoading = false;
       state.data = [];
       state.error = null;
-      state.offset = 0; //new entry
+      state.offset = 0;
     },
     increaseOffsetBy12: (state) => {
-      state.offset += 12; // new entry
+      state.offset += 12;
     },
     changeKeywords: (state, action) => {
-      state.keywords = action.payload; // newer entry
+      state.keywords = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -89,8 +89,8 @@ export const productsSlice = createSlice({
 });
 
 export const products = (state) => state.products.data;
-export const offsetValue = (state) => state.products.offset; //new entry
-export const searchKeywords = (state) => state.products.keywords; //newer entry
+export const offsetValue = (state) => state.products.offset;
+export const searchKeywords = (state) => state.products.keywords;
 export const { clearData, increaseOffsetBy12, changeKeywords } =
   productsSlice.actions;
 export default productsSlice.reducer;
