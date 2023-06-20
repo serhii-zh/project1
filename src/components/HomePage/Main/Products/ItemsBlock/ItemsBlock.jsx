@@ -11,6 +11,7 @@ import {
   products,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
+import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const ItemsBlock = () => {
 
   const content = (
     <div className={styles.itemsBlock}>
-      {items.length === 0 && `No Results Found`}
+      {items.length === 0 && <NoResultsPage />}
       <ul className={styles.itemsList}>
         {items.length > 0 &&
           items.map((p) => (
