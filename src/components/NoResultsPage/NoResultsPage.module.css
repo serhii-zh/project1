@@ -1,0 +1,7 @@
+.notFoundMessage {
+  align-self: center;
+  color: rgb(130, 124, 165);
+  font-weight: bold;
+  font-size: 4rem;
+  margin-top: 25%;
+}
