@@ -37,8 +37,8 @@ const ItemsBlock = () => {
           offset,
         })
       );
-    } else if (categoryId) {
-      dispatch(fetchProductsByCategoryId(categoryId, { limit, offset }));
+    } else if (categoryId > 0) {
+      dispatch(fetchProductsByCategoryId({ categoryId, limit, offset }));
     } else {
       dispatch(fetchProducts({ limit, offset }));
     }

@@ -33,14 +33,13 @@ export const findProducts = createAsyncThunk(
 
 export const fetchProductsByCategoryId = createAsyncThunk(
   'products/fetchProductsByCategoryId',
-  async (id, params) => {
-    const fetchProductsByCategoryURL = `https://demo-api.apiko.academy/api/categories/${id}/products`;
+  async ({ categoryId, limit, offset }) => {
+    const fetchProductsByCategoryURL = `https://demo-api.apiko.academy/api/categories/${categoryId}/products`;
 
     try {
       const { data } = await axios.get(fetchProductsByCategoryURL, {
-        params,
+        params: { limit, offset },
       });
-      debugger;
 
       return data;
     } catch (err) {
