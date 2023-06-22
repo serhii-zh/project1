@@ -11,6 +11,6 @@
   border-radius: 5px;
 }
 
-option:not(:first-of-type) {
+.categories option {
   color: black;
 }

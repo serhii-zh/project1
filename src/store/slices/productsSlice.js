@@ -7,8 +7,8 @@ export const fetchProducts = createAsyncThunk(
     const productsURL = `https://demo-api.apiko.academy/api/products`;
 
     try {
-      const response = await axios.get(productsURL, { params });
-      const data = response.data;
+      const { data } = await axios.get(productsURL, { params });
+
       return data;
     } catch (err) {
       return err.message;
@@ -22,8 +22,25 @@ export const findProducts = createAsyncThunk(
     const searchUrl = `https://demo-api.apiko.academy/api/products/search`;
 
     try {
-      const response = await axios.get(searchUrl, { params });
-      const data = response.data;
+      const { data } = await axios.get(searchUrl, { params });
+
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
+export const fetchProductsByCategoryId = createAsyncThunk(
+  'products/fetchProductsByCategoryId',
+  async (id, params) => {
+    const fetchProductsByCategoryURL = `https://demo-api.apiko.academy/api/categories/${id}/products`;
+
+    try {
+      const { data } = await axios.get(fetchProductsByCategoryURL, {
+        params,
+      });
+      debugger;
 
       return data;
     } catch (err) {
@@ -38,6 +55,7 @@ const initialState = {
   error: null,
   offset: 0,
   keywords: '',
+  selectedCategory: null,
 };
 
 export const productsSlice = createSlice({
@@ -55,6 +73,9 @@ export const productsSlice = createSlice({
     },
     changeKeywords: (state, action) => {
       state.keywords = action.payload;
+    },
+    setSelectedCategoryId: (state, action) => {
+      state.selectedCategory = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -84,6 +105,19 @@ export const productsSlice = createSlice({
       .addCase(findProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchProductsByCategoryId.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductsByCategoryId.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.concat(action.payload);
+        state.error = null;
+      })
+      .addCase(fetchProductsByCategoryId.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
@@ -91,6 +125,11 @@ export const productsSlice = createSlice({
 export const products = (state) => state.products.data;
 export const offsetValue = (state) => state.products.offset;
 export const searchKeywords = (state) => state.products.keywords;
-export const { clearData, increaseOffsetBy12, changeKeywords } =
-  productsSlice.actions;
+export const selectedCategoryId = (state) => state.products.selectedCategory;
+export const {
+  clearData,
+  increaseOffsetBy12,
+  changeKeywords,
+  setSelectedCategoryId,
+} = productsSlice.actions;
 export default productsSlice.reducer;

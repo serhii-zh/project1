@@ -3,12 +3,14 @@ import Item from './Item/Item';
 import styles from './ItemsBlock.module.css';
 import { useEffect, useState } from 'react';
 import {
+  products,
+  offsetValue,
   fetchProducts,
   findProducts,
+  fetchProductsByCategoryId,
   increaseOffsetBy12,
   searchKeywords,
-  offsetValue,
-  products,
+  selectedCategoryId,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
 import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
@@ -19,6 +21,8 @@ const ItemsBlock = () => {
   const offset = useSelector(offsetValue);
 
   const keywords = useSelector(searchKeywords);
+  const categoryId = useSelector(selectedCategoryId);
+
   const [limit] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -33,10 +37,12 @@ const ItemsBlock = () => {
           offset,
         })
       );
+    } else if (categoryId) {
+      dispatch(fetchProductsByCategoryId(categoryId, { limit, offset }));
     } else {
       dispatch(fetchProducts({ limit, offset }));
     }
-  }, [dispatch, offset, limit, keywords]);
+  }, [dispatch, offset, limit, keywords, categoryId]);
 
   useEffect(() => {
     const footerElement = document.getElementById('footer');
