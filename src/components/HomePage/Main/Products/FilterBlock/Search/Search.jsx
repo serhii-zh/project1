@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Search.module.css';
 import {
   clearData,
@@ -6,9 +6,11 @@ import {
 } from '../../../../../../store/slices/productsSlice';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
+import { searchKeywords } from '../../../../../../store/slices/productsSlice';
 
 const Search = () => {
   const dispatch = useDispatch();
+  const keywords = useSelector(searchKeywords);
 
   const [focused, setFocused] = useState(false);
 
@@ -54,7 +56,9 @@ const Search = () => {
 
   return (
     <input
-      className={`${styles.search} ${focused ? styles.focused : ''}`}
+      className={`${styles.search} ${
+        focused || keywords ? styles.focused : ''
+      }`}
       type='text'
       name='search-field'
       id='search-field'
