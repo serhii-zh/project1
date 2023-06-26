@@ -33,12 +33,12 @@ export const findProducts = createAsyncThunk(
 
 export const fetchProductsByCategoryId = createAsyncThunk(
   'products/fetchProductsByCategoryId',
-  async ({ categoryId, limit, offset }) => {
+  async ({ categoryId, limit, offset, sortBy }) => {
     const fetchProductsByCategoryURL = `https://demo-api.apiko.academy/api/categories/${categoryId}/products`;
 
     try {
       const { data } = await axios.get(fetchProductsByCategoryURL, {
-        params: { limit, offset },
+        params: { limit, offset, sortBy },
       });
 
       return data;
@@ -55,6 +55,7 @@ const initialState = {
   offset: 0,
   keywords: '',
   selectedCategory: null,
+  sortBy: 'latest',
 };
 
 export const productsSlice = createSlice({
@@ -75,6 +76,9 @@ export const productsSlice = createSlice({
     },
     setSelectedCategoryId: (state, action) => {
       state.selectedCategory = action.payload;
+    },
+    changeSortBy: (state, action) => {
+      state.sortBy = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -125,10 +129,14 @@ export const products = (state) => state.products.data;
 export const offsetValue = (state) => state.products.offset;
 export const searchKeywords = (state) => state.products.keywords;
 export const selectedCategoryId = (state) => state.products.selectedCategory;
+export const sortByValue = (state) => state.products.sortBy;
+
 export const {
   clearData,
   increaseOffsetBy12,
   changeKeywords,
   setSelectedCategoryId,
+  changeSortBy,
 } = productsSlice.actions;
+
 export default productsSlice.reducer;

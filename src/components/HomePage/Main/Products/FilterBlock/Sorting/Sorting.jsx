@@ -1,6 +1,19 @@
+import { useDispatch } from 'react-redux';
+import {
+  changeSortBy,
+  clearData,
+} from '../../../../../../store/slices/productsSlice';
 import styles from './Sorting.module.css';
 
 const Sorting = () => {
+  const dispatch = useDispatch();
+
+  const handleChange = (evt) => {
+    const { value } = evt.target;
+    dispatch(clearData());
+    dispatch(changeSortBy(value));
+  };
+
   return (
     <select
       className={styles.sorting}
@@ -8,6 +21,7 @@ const Sorting = () => {
       id='sorting-dropdown'
       placeholder='Sorting'
       defaultValue={'default'}
+      onChange={handleChange}
     >
       <option value='default' disabled hidden>
         Sorting

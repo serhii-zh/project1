@@ -11,6 +11,7 @@ import {
   increaseOffsetBy12,
   searchKeywords,
   selectedCategoryId,
+  sortByValue,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
 import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
@@ -19,6 +20,7 @@ const ItemsBlock = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
   const offset = useSelector(offsetValue);
+  const sortBy = useSelector(sortByValue);
 
   const keywords = useSelector(searchKeywords);
   const categoryId = useSelector(selectedCategoryId);
@@ -38,11 +40,13 @@ const ItemsBlock = () => {
         })
       );
     } else if (categoryId > 0) {
-      dispatch(fetchProductsByCategoryId({ categoryId, limit, offset }));
+      dispatch(
+        fetchProductsByCategoryId({ categoryId, limit, offset, sortBy })
+      );
     } else {
-      dispatch(fetchProducts({ limit, offset }));
+      dispatch(fetchProducts({ limit, offset, sortBy }));
     }
-  }, [dispatch, offset, limit, keywords, categoryId]);
+  }, [dispatch, offset, limit, keywords, categoryId, sortBy]);
 
   useEffect(() => {
     const footerElement = document.getElementById('footer');
