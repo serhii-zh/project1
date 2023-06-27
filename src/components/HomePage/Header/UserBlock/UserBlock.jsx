@@ -3,11 +3,13 @@ import showOptions from '../../../../images/down_smbl.png';
 import styles from './UserBlock.module.css';
 import UserModal from './UserModal/UserModal';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const UserBlock = () => {
+  const userData = useSelector(currentUser);
   const [isShown, setIsShown] = useState(false);
 
-  const fullName = currentUser.account.fullName;
+  const fullName = userData.fullName;
   const fullNameByWords = fullName.split(' ');
   const firstName = fullNameByWords[0];
   const lastName = fullNameByWords[fullNameByWords.length - 1];
@@ -33,7 +35,7 @@ const UserBlock = () => {
       />
       {isShown && (
         <UserModal
-          user={currentUser}
+          userData={userData}
           isShown={isShown}
           handleClose={handleOptionsClick}
         />

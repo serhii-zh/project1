@@ -4,10 +4,10 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../../../../store/slices/currentUserSlice';
 
-const UserModal = ({ user, isShown, handleClose }) => {
+const UserModal = ({ userData, isShown, handleClose }) => {
   const dispatch = useDispatch();
-  const userFullName = user.account.fullName;
-  const userEmail = user.account.email;
+  const userFullName = userData.fullName;
+  const userEmail = userData.email;
 
   const handleLogOut = () => {
     dispatch(logOut());
@@ -33,7 +33,7 @@ const UserModal = ({ user, isShown, handleClose }) => {
           >
             Settings
           </NavLink>
-          <NavLink className={styles.logOut} onClick={handleLogOut}>
+          <NavLink to='/' className={styles.logOut} onClick={handleLogOut}>
             Log Out
           </NavLink>
         </div>
