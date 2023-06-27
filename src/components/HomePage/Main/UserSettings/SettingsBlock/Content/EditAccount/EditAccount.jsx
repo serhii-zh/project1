@@ -3,7 +3,7 @@ import styles from './EditAccount.module.css';
 import { currentUser } from '../../../../../../../store/slices/currentUserSlice';
 import { useState } from 'react';
 
-const EditAccount = () => {
+const Edi = () => {
   const [formData, setFormData] = useState({});
 
   const showLabel = (evt) => {
@@ -62,9 +62,7 @@ const EditAccount = () => {
       name: 'fullName',
       placeholder: 'Full Name',
       pattern: '^[a-zA-Z\\s]*$',
-      value: currentUser.account.fullName
-        ? currentUser.account.fullName
-        : undefined,
+      value: currentUser.fullName ? currentUser.fullName : undefined,
       required: true,
       onChange: validateInputValue,
       onFocus: showLabel,
@@ -75,7 +73,7 @@ const EditAccount = () => {
       name: 'email',
       placeholder: 'Email',
       pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
-      value: currentUser.account.email ? currentUser.account.email : undefined,
+      value: currentUser.email ? currentUser.email : undefined,
       required: true,
       onChange: validateInputValue,
       onFocus: showLabel,
@@ -86,7 +84,7 @@ const EditAccount = () => {
       name: 'phone',
       placeholder: 'Phone',
       pattern: '^(\\+)?([0-9]){10,14}$',
-      value: currentUser.account.phone ? currentUser.account.phone : undefined,
+      value: currentUser.phone ? currentUser.phone : undefined,
       required: true,
       onChange: validateInputValue,
       onFocus: showLabel,
@@ -97,9 +95,7 @@ const EditAccount = () => {
       name: 'country',
       placeholder: 'Country',
       pattern: '^[a-zA-Z\\s]*$',
-      value: currentUser.account.country
-        ? currentUser.account.country
-        : undefined,
+      value: currentUser.country ? currentUser.country : undefined,
       onChange: validateInputValue,
       onFocus: showLabel,
     },
@@ -108,7 +104,7 @@ const EditAccount = () => {
       name: 'city',
       placeholder: 'City',
       pattern: '^[a-zA-Z\\s]*$',
-      value: currentUser.account.city ? currentUser.account.city : undefined,
+      value: currentUser.city ? currentUser.city : undefined,
       onChange: validateInputValue,
       onFocus: showLabel,
     },
@@ -117,9 +113,7 @@ const EditAccount = () => {
       name: 'address',
       placeholder: 'Address',
       pattern: '^[a-zA-Z0-9\\s.,/]*$',
-      value: currentUser.account.address
-        ? currentUser.account.address
-        : undefined,
+      value: currentUser.address ? currentUser.address : undefined,
       onChange: validateInputValue,
       onFocus: showLabel,
     },
@@ -179,4 +173,4 @@ const EditAccount = () => {
   );
 };
 
-export default EditAccount;
+export default Edi;

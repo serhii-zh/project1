@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const LOG_IN_URL = 'https://demo-api.apiko.academy/api/auth/login';
-
 export const logInUser = createAsyncThunk(
   'logIn/logInUser',
   async (userData) => {
+    const logInUrl = 'https://demo-api.apiko.academy/api/auth/login';
+
     try {
-      const response = await axios.post(LOG_IN_URL, userData);
-      const data = response.data;
-      localStorage.setItem('currentUser', JSON.stringify(data)); // add data to local storage
+      const { data } = await axios.post(logInUrl, userData);
+      localStorage.setItem('currentUser', JSON.stringify(data.token)); // add data to local storage
+
       return data;
     } catch (err) {
       return err.message;
@@ -17,16 +17,36 @@ export const logInUser = createAsyncThunk(
   }
 );
 
-const REGISTER_URL = 'https://demo-api.apiko.academy/api/auth/register';
-
 export const registerUser = createAsyncThunk(
   'registration/registerUser',
   async (userData) => {
-    console.log(userData);
+    const registerUrl = 'https://demo-api.apiko.academy/api/auth/register';
+
     try {
-      const response = await axios.post(REGISTER_URL, userData);
-      const data = response.data;
-      localStorage.setItem('currentUser', JSON.stringify(data)); // add data to local storage
+      const { data } = await axios.post(registerUrl, userData);
+      localStorage.setItem('currentUser', JSON.stringify(data.token)); // add data to local storage
+
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
+export const getAccountData = createAsyncThunk(
+  'account/getAccountData',
+  async (userToken) => {
+    const getAccountDataUrl = 'https://demo-api.apiko.academy/api/account';
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        accept: 'application/json',
+      },
+    };
+
+    try {
+      const { data } = await axios.get(getAccountDataUrl, config);
+
       return data;
     } catch (err) {
       return err.message;
@@ -57,7 +77,7 @@ export const currentUserSlice = createSlice({
       })
       .addCase(logInUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = action.payload;
+        state.data = action.payload.account;
         state.error = null;
       })
       .addCase(logInUser.rejected, (state, action) => {
@@ -76,11 +96,26 @@ export const currentUserSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(getAccountData.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getAccountData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+        state.error = null;
+      })
+      .addCase(getAccountData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-// export const currentUser = (state) => state.currentUser.data;
-export const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+export const currentUser = (state) => state.currentUser.data;
+export const token = () => JSON.parse(localStorage.getItem('currentUser'));
+
+// export const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 export const { logOut } = currentUserSlice.actions;
 export default currentUserSlice.reducer;
