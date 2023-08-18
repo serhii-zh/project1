@@ -130,6 +130,7 @@ export const offsetValue = (state) => state.products.offset;
 export const searchKeywords = (state) => state.products.keywords;
 export const selectedCategoryId = (state) => state.products.selectedCategory;
 export const sortByValue = (state) => state.products.sortBy;
+export const productsIsLoading = (state) => state.products.isLoading;
 
 export const {
   clearData,

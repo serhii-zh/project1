@@ -114,8 +114,8 @@ export const currentUserSlice = createSlice({
 });
 
 export const currentUser = (state) => state.currentUser.data;
+export const currentUserIsLoading = (state) => state.currentUser.isLoading;
 export const token = () => JSON.parse(localStorage.getItem('currentUser'));
 
-// export const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 export const { logOut } = currentUserSlice.actions;
 export default currentUserSlice.reducer;

@@ -12,15 +12,18 @@ import {
   searchKeywords,
   selectedCategoryId,
   sortByValue,
+  productsIsLoading,
 } from '../../../../../store/slices/productsSlice';
 import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
 import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
+import Loader from '../../../../Loader/Loader';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
   const offset = useSelector(offsetValue);
   const sortBy = useSelector(sortByValue);
+  const itemsLoading = useSelector(productsIsLoading);
 
   const keywords = useSelector(searchKeywords);
   const categoryId = useSelector(selectedCategoryId);
@@ -64,6 +67,7 @@ const ItemsBlock = () => {
 
   const content = (
     <div className={styles.itemsBlock}>
+      {itemsLoading && <Loader />}
       {items.length === 0 && <NoResultsPage />}
       <ul className={styles.itemsList}>
         {items.length > 0 &&
