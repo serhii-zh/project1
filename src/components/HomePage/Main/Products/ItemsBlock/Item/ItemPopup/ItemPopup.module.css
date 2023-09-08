@@ -1,0 +1,125 @@
+.blurBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  left: 20%;
+  right: 20%;
+  top: 15%;
+  bottom: 15%;
+  background-color: white;
+  box-shadow: 0px 0px 12px 0px #000000 10%;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 0 2rem;
+}
+
+.itemInfo .close {
+  align-self: flex-end;
+  margin: 10px -30px 0 0;
+  cursor: pointer;
+}
+
+.itemInfo .itemBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.itemBody .basicInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 60%;
+}
+
+.basicInfo .image {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 5px;
+  border: 1px solid #e4e4e4;
+  border-radius: 3px;
+  width: 40%;
+  height: 100%;
+}
+
+.image img {
+  width: 100%;
+}
+
+.basicInfo .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.details .title {
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.details .description {
+  margin: 0;
+  color: #707070;
+  height: 8rem;
+  overflow-x: auto;
+  border: 1px solid #e4e4e4;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.details .price {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-right: 7rem;
+}
+
+.details span {
+  color: #000000;
+  font-weight: bold;
+}
+
+.details .totalItems,
+.details .totalPrice {
+  color: #707070;
+}
+
+.details .totalItems span,
+.details .totalPrice span {
+  margin-left: 2rem;
+}
+
+.itemBody .buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 5rem;
+}
+
+.buttons .addButtons {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+}

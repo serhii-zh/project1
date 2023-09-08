@@ -71,9 +71,9 @@ const ItemsBlock = () => {
       {items.length === 0 && <NoResultsPage />}
       <ul className={styles.itemsList}>
         {items.length > 0 &&
-          items.map((p) => (
-            <li key={p.id}>
-              <Item title={p.title} imageUrl={p.picture} price={p.price} />
+          items.map((i) => (
+            <li key={i.id}>
+              <Item item={i} />
             </li>
           ))}
       </ul>
