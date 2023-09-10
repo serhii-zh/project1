@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import close from '../../../../../../images/close.png';
 import styles from './LogInModal.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logInUser } from '../../../../../../store/slices/currentUserSlice';
 import { NavLink } from 'react-router-dom';
@@ -11,6 +11,13 @@ const LogInModal = ({ isShown, handleClose }) => {
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'scroll';
+    };
+  });
 
   const showLabel = (evt) => {
     const parentDiv = evt.target.closest('div');

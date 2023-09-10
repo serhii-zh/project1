@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import close from '../../../../../../images/close.png';
 import styles from './RegisterModal.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../../../../store/slices/currentUserSlice';
 import { NavLink } from 'react-router-dom';
@@ -11,6 +11,13 @@ const RegisterModal = ({ isShown, handleClose }) => {
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'scroll';
+    };
+  });
 
   const showLabel = (evt) => {
     const parentDiv = evt.target.closest('div');
@@ -110,7 +117,8 @@ const RegisterModal = ({ isShown, handleClose }) => {
       type: 'password',
       name: 'password',
       placeholder: 'Password',
-      pattern: '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,35}$',
+      pattern:
+        '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,35}$',
       required: true,
       message:
         'The password should contain 1 letter, 1 special symbol, 1 number',

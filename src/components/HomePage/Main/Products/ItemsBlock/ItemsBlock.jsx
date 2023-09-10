@@ -14,9 +14,11 @@ import {
   sortByValue,
   productsIsLoading,
 } from '../../../../../store/slices/productsSlice';
-import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
+// import ShowMoreButton from '../../../../ShowMoreButton/ShowMoreButton';
+
 import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
 import Loader from '../../../../Loader/Loader';
+import { LoadMoreButton } from '../../../../Button/StyledButton';
 
 const ItemsBlock = () => {
   const dispatch = useDispatch();
@@ -77,7 +79,12 @@ const ItemsBlock = () => {
             </li>
           ))}
       </ul>
-      {currentPage < pages && <ShowMoreButton onClickFnc={showNextPage} />}
+      {
+        currentPage < pages && (
+          <LoadMoreButton onClick={showNextPage}>Load More...</LoadMoreButton>
+        )
+        // <ShowMoreButton onClickFnc={showNextPage} />
+      }
     </div>
   );
 
