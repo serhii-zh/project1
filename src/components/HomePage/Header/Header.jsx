@@ -21,7 +21,7 @@ const Header = () => {
     if (userToken) {
       dispatch(getAccountData(userToken));
     }
-  }, [dispatch, userToken, userData]);
+  }, [dispatch, userToken]);
 
   return (
     <header className={styles.header}>
