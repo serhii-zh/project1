@@ -1,8 +1,12 @@
 import { createPortal } from 'react-dom';
 import styles from './ItemPopup.module.css';
 import close from '../../../../../../../images/close.png';
+import Counter from './Counter/Counter';
+import { useState } from 'react';
 
 const ItemPopup = ({ isShown, handleClose, item }) => {
+  const [itemsNumber, setItemsNumber] = useState(1);
+
   const content = (
     <>
       <div className={styles.blurBg}></div>
@@ -26,13 +30,16 @@ const ItemPopup = ({ isShown, handleClose, item }) => {
               <div className={styles.price}>
                 PRICE: <span>${item.price}</span>
               </div>
-              <div>+ 1 -</div>
+              <Counter
+                itemsNumber={itemsNumber}
+                setItemsNumber={setItemsNumber}
+              />
               <div>
                 <div className={styles.totalItems}>
-                  Items: <span>1</span>
+                  Items: <span>{itemsNumber}</span>
                 </div>
                 <div className={styles.totalPrice}>
-                  Total: <span>$000</span>
+                  Total: <span>${itemsNumber * item.price}</span>
                 </div>
               </div>
             </div>
