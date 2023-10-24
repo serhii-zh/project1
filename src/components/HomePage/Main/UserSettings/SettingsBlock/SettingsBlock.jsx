@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './SettingsBlock.module.css';
 import { NavLink, Routes, Route, useLocation } from 'react-router-dom';
 import EditAccount from './Content/EditAccount/EditAccount';
+import Favorites from './Content/Favorites/Favorites';
 
 const SettingsBlock = () => {
   const [editFocused, setEditFocused] = useState(false);
@@ -60,7 +61,7 @@ const SettingsBlock = () => {
         <Routes>
           <Route path='edit' element={<EditAccount />} />
           <Route path='orders' element={<div>orders</div>} />
-          <Route path='favorites' element={<div>favorites</div>} />
+          <Route path='favorites' element={<Favorites />} />
         </Routes>
       </div>
     </>

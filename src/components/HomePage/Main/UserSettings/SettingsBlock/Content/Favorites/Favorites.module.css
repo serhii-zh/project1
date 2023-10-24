@@ -1,0 +1,7 @@
+.favoritesList {
+  display: flex;
+  width: 45rem;
+  list-style: none;
+  flex-wrap: wrap;
+  gap: 10px;
+}

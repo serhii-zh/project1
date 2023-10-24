@@ -3,11 +3,22 @@ import axios from 'axios';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async (params) => {
+  async ({ userToken, limit, offset, sortBy }) => {
     const productsURL = `https://demo-api.apiko.academy/api/products`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        accept: 'application/json',
+      },
+      params: {
+        limit,
+        offset,
+        sortBy,
+      },
+    };
 
     try {
-      const { data } = await axios.get(productsURL, { params });
+      const { data } = await axios.get(productsURL, config);
 
       return data;
     } catch (err) {
@@ -18,11 +29,23 @@ export const fetchProducts = createAsyncThunk(
 
 export const findProducts = createAsyncThunk(
   'products/findProducts',
-  async (params) => {
+  async ({ userToken, keywords, limit, offset }) => {
     const searchUrl = `https://demo-api.apiko.academy/api/products/search`;
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        accept: 'application/json',
+      },
+      params: {
+        keywords,
+        limit,
+        offset,
+      },
+    };
+
     try {
-      const { data } = await axios.get(searchUrl, { params });
+      const { data } = await axios.get(searchUrl, config);
 
       return data;
     } catch (err) {
@@ -48,6 +71,70 @@ export const fetchProductsByCategoryId = createAsyncThunk(
   }
 );
 
+export const getFavorites = createAsyncThunk(
+  'products/getFavorites',
+  async (userToken) => {
+    const getFavoritesUrl = `https://demo-api.apiko.academy/api/products/favorites`;
+    // const getFavoritesUrl = `https://demo-api.apiko.academy/api/products/favorites?offset=0&limit=20`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        accept: 'application/json',
+      },
+    };
+
+    try {
+      const { data } = await axios.get(getFavoritesUrl, config);
+
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
+export const addToFavorites = createAsyncThunk(
+  'products/addToFavorites',
+  async ({ itemId, userToken }) => {
+    const addToFavoritesUrl = `https://demo-api.apiko.academy/api/products/${itemId}/favorite`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        accept: 'application/json',
+      },
+    };
+
+    try {
+      const { data } = await axios.post(addToFavoritesUrl, {}, config);
+
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
+export const removeFromFavorites = createAsyncThunk(
+  'products/removeFromFavorites',
+  async ({ itemId, userToken }) => {
+    const removeFromFavoritesUrl = `https://demo-api.apiko.academy/api/products/${itemId}/favorite`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        accept: 'application/json',
+      },
+    };
+
+    try {
+      const { data } = await axios.delete(removeFromFavoritesUrl, config);
+
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const initialState = {
   isLoading: false,
   data: [],
@@ -56,6 +143,7 @@ const initialState = {
   keywords: '',
   selectedCategory: null,
   sortBy: 'latest',
+  favorites: [],
 };
 
 export const productsSlice = createSlice({
@@ -96,6 +184,7 @@ export const productsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      //------------------------
       .addCase(findProducts.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -109,6 +198,7 @@ export const productsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      //----------------------------
       .addCase(fetchProductsByCategoryId.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -121,7 +211,22 @@ export const productsSlice = createSlice({
       .addCase(fetchProductsByCategoryId.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      //--------------------------
+      .addCase(getFavorites.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getFavorites.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.favorites = action.payload;
+        state.error = null;
+      })
+      .addCase(getFavorites.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
+    //--------------------------
   },
 });
 
@@ -131,6 +236,8 @@ export const searchKeywords = (state) => state.products.keywords;
 export const selectedCategoryId = (state) => state.products.selectedCategory;
 export const sortByValue = (state) => state.products.sortBy;
 export const productsIsLoading = (state) => state.products.isLoading;
+export const favoriteItems = (state) => state.products.favorites;
+export const token = () => JSON.parse(localStorage.getItem('currentUser'));
 
 export const {
   clearData,
