@@ -5,7 +5,13 @@ import Counter from './Counter/Counter';
 import { useState, useEffect } from 'react';
 import StyledButton from '../../../../../../Button/StyledButton';
 
-const ItemPopup = ({ isShown, handleClose, item }) => {
+const ItemPopup = ({
+  isShown,
+  handleFavoriteClick,
+  userToken,
+  handleClose,
+  item,
+}) => {
   const [itemsNumber, setItemsNumber] = useState(1);
 
   useEffect(() => {
@@ -13,11 +19,7 @@ const ItemPopup = ({ isShown, handleClose, item }) => {
     return () => {
       document.body.style.overflow = 'scroll';
     };
-  });
-
-  const addToFavorites = () => {
-    console.log('fav');
-  };
+  }, []);
 
   const content = (
     <>
@@ -58,15 +60,14 @@ const ItemPopup = ({ isShown, handleClose, item }) => {
           </div>
           <div className={styles.buttons}>
             <div className={styles.addButtons}>
-              {/* <button>add to cart</button> */}
               <StyledButton>ADD TO CART</StyledButton>
 
-              <StyledButton onClick={addToFavorites}>
-                ADD TO FAVORITES
+              <StyledButton
+                onClick={() => handleFavoriteClick(item.id, userToken)}
+              >
+                {item.favorite ? 'REMOVE FROM FAVORITES' : 'ADD TO FAVORITES'}
               </StyledButton>
-              {/* <button>add to favorites</button> */}
             </div>
-            {/* <button>buy now</button> */}
             <StyledButton $orange='true'>BUY NOW</StyledButton>
           </div>
         </div>

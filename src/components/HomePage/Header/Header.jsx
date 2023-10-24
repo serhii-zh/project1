@@ -1,4 +1,4 @@
-import Favorites from './Favorites&ShoppingCart/Favorites/Favorites';
+import FavoritesIcon from './Favorites&ShoppingCart/FavoritesIcon/FavoritesIcon';
 import ShoppingCart from './Favorites&ShoppingCart/ShoppingCart/ShoppingCart';
 import styles from './Header.module.css';
 import Logo from './Logo/Logo';
@@ -31,7 +31,7 @@ const Header = () => {
       </div>
       <div className={styles.shoppingLoggingBlock}>
         <div className={styles.favoritesCartBlock}>
-          <Favorites />
+          <FavoritesIcon />
           <ShoppingCart />
         </div>
         {userData ? <UserBlock /> : <RegisterLogin />}
