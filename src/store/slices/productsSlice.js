@@ -168,6 +168,16 @@ export const productsSlice = createSlice({
     changeSortBy: (state, action) => {
       state.sortBy = action.payload;
     },
+    modifyFavoriteStatus: (state, action) => {
+      const itemToBeModified = state.data.find((item) => {
+        return item.id === action.payload;
+      });
+      const favoriteToBeModified = state.favorites.findIndex((item) => {
+        return item.id === action.payload;
+      });
+      itemToBeModified.favorite = !itemToBeModified.favorite;
+      state.favorites.splice(favoriteToBeModified, 1);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -245,6 +255,7 @@ export const {
   changeKeywords,
   setSelectedCategoryId,
   changeSortBy,
+  modifyFavoriteStatus,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

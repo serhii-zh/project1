@@ -5,6 +5,7 @@ import StyledFavoritesButton from '../../../../../FavoritesButton/StyledFavorite
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addToFavorites,
+  modifyFavoriteStatus,
   removeFromFavorites,
   token,
 } from '../../../../../../store/slices/productsSlice';
@@ -19,6 +20,7 @@ const Item = ({ item }) => {
   };
 
   const handleFavoriteClick = (itemId, userToken) => {
+    dispatch(modifyFavoriteStatus(itemId));
     item.favorite
       ? dispatch(removeFromFavorites({ itemId, userToken }))
       : dispatch(addToFavorites({ itemId, userToken }));
