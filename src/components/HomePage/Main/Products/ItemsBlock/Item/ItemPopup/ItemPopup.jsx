@@ -8,7 +8,6 @@ import StyledButton from '../../../../../../Button/StyledButton';
 const ItemPopup = ({
   isShown,
   handleFavoriteClick,
-  userToken,
   handleClose,
   item,
 }) => {
@@ -63,7 +62,7 @@ const ItemPopup = ({
               <StyledButton>ADD TO CART</StyledButton>
 
               <StyledButton
-                onClick={() => handleFavoriteClick(item.id, userToken)}
+                onClick={() => handleFavoriteClick(item.id)}
               >
                 {item.favorite ? 'REMOVE FROM FAVORITES' : 'ADD TO FAVORITES'}
               </StyledButton>

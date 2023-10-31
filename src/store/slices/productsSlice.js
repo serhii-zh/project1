@@ -1,24 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { authInstance } from '../../services/axiosInstances';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ userToken, limit, offset, sortBy }) => {
-    const productsURL = `https://demo-api.apiko.academy/api/products`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        accept: 'application/json',
-      },
-      params: {
-        limit,
-        offset,
-        sortBy,
-      },
-    };
-
+  async ({ limit, offset, sortBy }) => {
     try {
-      const { data } = await axios.get(productsURL, config);
+      const { data } = await authInstance.get(`/products`, {
+        params: {
+          limit,
+          offset,
+          sortBy,
+        },
+      });
 
       return data;
     } catch (err) {
@@ -29,23 +22,15 @@ export const fetchProducts = createAsyncThunk(
 
 export const findProducts = createAsyncThunk(
   'products/findProducts',
-  async ({ userToken, keywords, limit, offset }) => {
-    const searchUrl = `https://demo-api.apiko.academy/api/products/search`;
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        accept: 'application/json',
-      },
-      params: {
-        keywords,
-        limit,
-        offset,
-      },
-    };
-
+  async ({ keywords, limit, offset }) => {
     try {
-      const { data } = await axios.get(searchUrl, config);
+      const { data } = await authInstance.get('/products/search', {
+        params: {
+          keywords,
+          limit,
+          offset,
+        },
+      });
 
       return data;
     } catch (err) {
@@ -57,12 +42,17 @@ export const findProducts = createAsyncThunk(
 export const fetchProductsByCategoryId = createAsyncThunk(
   'products/fetchProductsByCategoryId',
   async ({ categoryId, limit, offset, sortBy }) => {
-    const fetchProductsByCategoryURL = `https://demo-api.apiko.academy/api/categories/${categoryId}/products`;
-
     try {
-      const { data } = await axios.get(fetchProductsByCategoryURL, {
-        params: { limit, offset, sortBy },
-      });
+      const { data } = await authInstance.get(
+        `/categories/${categoryId}/products`,
+        {
+          params: {
+            limit,
+            offset,
+            sortBy,
+          },
+        }
+      );
 
       return data;
     } catch (err) {
@@ -73,18 +63,9 @@ export const fetchProductsByCategoryId = createAsyncThunk(
 
 export const getFavorites = createAsyncThunk(
   'products/getFavorites',
-  async (userToken) => {
-    const getFavoritesUrl = `https://demo-api.apiko.academy/api/products/favorites`;
-    // const getFavoritesUrl = `https://demo-api.apiko.academy/api/products/favorites?offset=0&limit=20`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        accept: 'application/json',
-      },
-    };
-
+  async () => {
     try {
-      const { data } = await axios.get(getFavoritesUrl, config);
+      const { data } = await authInstance.get('/products/favorites');
 
       return data;
     } catch (err) {
@@ -95,17 +76,9 @@ export const getFavorites = createAsyncThunk(
 
 export const addToFavorites = createAsyncThunk(
   'products/addToFavorites',
-  async ({ itemId, userToken }) => {
-    const addToFavoritesUrl = `https://demo-api.apiko.academy/api/products/${itemId}/favorite`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        accept: 'application/json',
-      },
-    };
-
+  async ({ itemId }) => {
     try {
-      const { data } = await axios.post(addToFavoritesUrl, {}, config);
+      const { data } = await authInstance.post(`/products/${itemId}/favorite`);
 
       return data;
     } catch (err) {
@@ -116,17 +89,11 @@ export const addToFavorites = createAsyncThunk(
 
 export const removeFromFavorites = createAsyncThunk(
   'products/removeFromFavorites',
-  async ({ itemId, userToken }) => {
-    const removeFromFavoritesUrl = `https://demo-api.apiko.academy/api/products/${itemId}/favorite`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        accept: 'application/json',
-      },
-    };
-
+  async ({ itemId }) => {
     try {
-      const { data } = await axios.delete(removeFromFavoritesUrl, config);
+      const { data } = await authInstance.delete(
+        `/products/${itemId}/favorite`
+      );
 
       return data;
     } catch (err) {
@@ -170,11 +137,13 @@ export const productsSlice = createSlice({
     },
     modifyFavoriteStatus: (state, action) => {
       const itemToBeModified = state.data.find((item) => {
+        // debugger;
         return item.id === action.payload;
       });
       const favoriteToBeModified = state.favorites.findIndex((item) => {
         return item.id === action.payload;
       });
+      // console.log(itemToBeModified);
       itemToBeModified.favorite = !itemToBeModified.favorite;
       state.favorites.splice(favoriteToBeModified, 1);
     },
@@ -247,7 +216,6 @@ export const selectedCategoryId = (state) => state.products.selectedCategory;
 export const sortByValue = (state) => state.products.sortBy;
 export const productsIsLoading = (state) => state.products.isLoading;
 export const favoriteItems = (state) => state.products.favorites;
-export const token = () => JSON.parse(localStorage.getItem('currentUser'));
 
 export const {
   clearData,

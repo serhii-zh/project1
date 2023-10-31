@@ -2,28 +2,26 @@ import styles from './Item.module.css';
 import { useState } from 'react';
 import ItemPopup from './ItemPopup/ItemPopup';
 import StyledFavoritesButton from '../../../../../FavoritesButton/StyledFavoritesButton';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   addToFavorites,
   modifyFavoriteStatus,
   removeFromFavorites,
-  token,
 } from '../../../../../../store/slices/productsSlice';
 
 const Item = ({ item }) => {
   const dispatch = useDispatch();
-  const userToken = useSelector(token);
   const [isShown, setIsShown] = useState(false);
 
   const handleClick = (isShown) => {
     setIsShown(!isShown);
   };
 
-  const handleFavoriteClick = (itemId, userToken) => {
+  const handleFavoriteClick = (itemId) => {
     dispatch(modifyFavoriteStatus(itemId));
     item.favorite
-      ? dispatch(removeFromFavorites({ itemId, userToken }))
-      : dispatch(addToFavorites({ itemId, userToken }));
+      ? dispatch(removeFromFavorites({ itemId }))
+      : dispatch(addToFavorites({ itemId }));
   };
 
   return (
@@ -36,14 +34,13 @@ const Item = ({ item }) => {
         </div>
         <StyledFavoritesButton
           $favorite={item.favorite}
-          onClick={() => handleFavoriteClick(item.id, userToken)}
+          onClick={() => handleFavoriteClick(item.id)}
         />
       </div>
       {isShown && (
         <ItemPopup
           isShown={isShown}
           handleFavoriteClick={handleFavoriteClick}
-          userToken={userToken}
           handleClose={handleClick}
           item={item}
         />
