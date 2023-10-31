@@ -10,18 +10,15 @@ import RegisterLogin from './Register&LogIn/RegisterLogin';
 import UserBlock from './UserBlock/UserBlock';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { userToken } from '../../../services/axiosInstances';
 
 const Header = () => {
   const dispatch = useDispatch();
   const userData = useSelector(currentUser);
 
   useEffect(() => {
-    // userData !== null &&
-    dispatch(getAccountData());
-  }, [
-    dispatch,
-    // , userData
-  ]);
+    userToken && dispatch(getAccountData());
+  }, [dispatch]);
 
   return (
     <header className={styles.header}>
