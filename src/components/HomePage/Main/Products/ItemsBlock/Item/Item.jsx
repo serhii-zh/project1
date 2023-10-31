@@ -3,11 +3,11 @@ import { useState } from 'react';
 import ItemPopup from './ItemPopup/ItemPopup';
 import StyledFavoritesButton from '../../../../../FavoritesButton/StyledFavoritesButton';
 import { useDispatch } from 'react-redux';
+import { modifyFavoriteStatus } from '../../../../../../store/slices/productsSlice';
 import {
   addToFavorites,
-  modifyFavoriteStatus,
   removeFromFavorites,
-} from '../../../../../../store/slices/productsSlice';
+} from '../../../../../../store/thunks/productsThunks';
 
 const Item = ({ item }) => {
   const dispatch = useDispatch();

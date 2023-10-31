@@ -3,7 +3,7 @@ import close from '../../../../../../images/close.png';
 import styles from './LogInModal.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logInUser } from '../../../../../../store/slices/currentUserSlice';
+import { logInUser } from '../../../../../../store/thunks/userThunks';
 import { NavLink } from 'react-router-dom';
 import FormComponent from '../../../../../Form/FormComponent';
 

@@ -1,8 +1,6 @@
 import styles from './UserSettings.module.css';
-import {
-  currentUser,
-  getAccountData,
-} from '../../../../store/slices/currentUserSlice';
+import { currentUser } from '../../../../store/slices/currentUserSlice';
+import { getAccountData } from '../../../../store/thunks/userThunks';
 import SettingsBlock from './SettingsBlock/SettingsBlock';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';

@@ -3,7 +3,7 @@ import close from '../../../../../../images/close.png';
 import styles from './RegisterModal.module.css';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../../../../store/slices/currentUserSlice';
+import { registerUser } from '../../../../../../store/thunks/userThunks';
 import { NavLink } from 'react-router-dom';
 import FormComponent from '../../../../../Form/FormComponent';
 

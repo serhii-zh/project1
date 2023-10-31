@@ -5,16 +5,17 @@ import { useEffect, useState } from 'react';
 import {
   products,
   offsetValue,
-  fetchProducts,
-  findProducts,
-  fetchProductsByCategoryId,
   increaseOffsetBy12,
   searchKeywords,
   selectedCategoryId,
   sortByValue,
   productsIsLoading,
 } from '../../../../../store/slices/productsSlice';
-
+import {
+  fetchProducts,
+  findProducts,
+  fetchProductsByCategoryId,
+} from '../../../../../store/thunks/productsThunks';
 import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
 import Loader from '../../../../Loader/Loader';
 import { LoadMoreButton } from '../../../../Button/StyledButton';

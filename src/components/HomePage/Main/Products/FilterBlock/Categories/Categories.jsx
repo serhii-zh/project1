@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Categories.module.css';
 import { useEffect } from 'react';
-import {
-  categoriesList,
-  getCategoriesList,
-} from '../../../../../../store/slices/categoriesSlice';
+import { categoriesList } from '../../../../../../store/slices/categoriesSlice';
 import {
   clearData,
   setSelectedCategoryId,
 } from '../../../../../../store/slices/productsSlice';
+import { getCategoriesList } from '../../../../../../store/thunks/categoriesThunks,';
 
 const Categories = () => {
   const dispatch = useDispatch();

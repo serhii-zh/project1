@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Favorites.module.css';
-import {
-  favoriteItems,
-  getFavorites,
-} from '../../../../../../../store/slices/productsSlice';
+import { favoriteItems } from '../../../../../../../store/slices/productsSlice';
+import { getFavorites } from '../../../../../../../store/thunks/productsThunks';
 import { useEffect } from 'react';
 import Item from '../../../../Products/ItemsBlock/Item/Item';
 
