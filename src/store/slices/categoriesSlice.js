@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { publicInstance } from '../../services/axiosInstances';
 
 export const getCategoriesList = createAsyncThunk(
   'categories/getCategoriesList',
   async () => {
-    const categoriesURL = 'https://demo-api.apiko.academy/api/categories';
-
     try {
-      const { data } = await axios.get(categoriesURL);
+      const { data } = await publicInstance.get('/categories');
 
       return data;
     } catch (err) {

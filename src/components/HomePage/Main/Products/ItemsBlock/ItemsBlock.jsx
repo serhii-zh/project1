@@ -13,7 +13,6 @@ import {
   selectedCategoryId,
   sortByValue,
   productsIsLoading,
-  token,
 } from '../../../../../store/slices/productsSlice';
 
 import NoResultsPage from '../../../../NoResultsPage/NoResultsPage';
@@ -26,7 +25,6 @@ const ItemsBlock = () => {
   const offset = useSelector(offsetValue);
   const sortBy = useSelector(sortByValue);
   const itemsLoading = useSelector(productsIsLoading);
-  const userToken = useSelector(token);
 
   const keywords = useSelector(searchKeywords);
   const categoryId = useSelector(selectedCategoryId);
@@ -40,7 +38,6 @@ const ItemsBlock = () => {
     if (keywords) {
       dispatch(
         findProducts({
-          userToken,
           keywords,
           limit,
           offset,
@@ -48,12 +45,23 @@ const ItemsBlock = () => {
       );
     } else if (categoryId > 0) {
       dispatch(
-        fetchProductsByCategoryId({ categoryId, limit, offset, sortBy })
+        fetchProductsByCategoryId({
+          categoryId,
+          limit,
+          offset,
+          sortBy,
+        })
       );
     } else {
-      dispatch(fetchProducts({ userToken, limit, offset, sortBy }));
+      dispatch(
+        fetchProducts({
+          limit,
+          offset,
+          sortBy,
+        })
+      );
     }
-  }, [dispatch, userToken, offset, limit, keywords, categoryId, sortBy]);
+  }, [dispatch, offset, limit, keywords, categoryId, sortBy]);
 
   useEffect(() => {
     const footerElement = document.getElementById('footer');

@@ -1,7 +1,6 @@
 import styles from './UserSettings.module.css';
 import {
   currentUser,
-  token,
   getAccountData,
 } from '../../../../store/slices/currentUserSlice';
 import SettingsBlock from './SettingsBlock/SettingsBlock';
@@ -11,13 +10,10 @@ import { useEffect } from 'react';
 const UserSettings = () => {
   const dispatch = useDispatch();
   const userData = useSelector(currentUser);
-  const userToken = useSelector(token);
 
   useEffect(() => {
-    if (userToken) {
-      dispatch(getAccountData(userToken));
-    }
-  }, [dispatch, userToken, userData]);
+    dispatch(getAccountData());
+  }, [dispatch]);
 
   const fullName = userData.fullName;
   const fullNameByWords = fullName.split(' ');

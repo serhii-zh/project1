@@ -5,7 +5,6 @@ import Logo from './Logo/Logo';
 import {
   currentUser,
   getAccountData,
-  token,
 } from '../../../store/slices/currentUserSlice';
 import RegisterLogin from './Register&LogIn/RegisterLogin';
 import UserBlock from './UserBlock/UserBlock';
@@ -15,13 +14,14 @@ import { useEffect } from 'react';
 const Header = () => {
   const dispatch = useDispatch();
   const userData = useSelector(currentUser);
-  const userToken = useSelector(token);
 
   useEffect(() => {
-    if (userToken) {
-      dispatch(getAccountData(userToken));
-    }
-  }, [dispatch, userToken]);
+    // userData !== null &&
+    dispatch(getAccountData());
+  }, [
+    dispatch,
+    // , userData
+  ]);
 
   return (
     <header className={styles.header}>

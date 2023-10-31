@@ -3,19 +3,17 @@ import styles from './Favorites.module.css';
 import {
   favoriteItems,
   getFavorites,
-  token,
 } from '../../../../../../../store/slices/productsSlice';
 import { useEffect } from 'react';
 import Item from '../../../../Products/ItemsBlock/Item/Item';
 
 const Favorites = () => {
   const favorites = useSelector(favoriteItems);
-  const userToken = useSelector(token);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFavorites(userToken));
-  }, [dispatch, userToken]);
+    dispatch(getFavorites());
+  }, [dispatch]);
 
   return (
     <ul className={styles.favoritesList}>

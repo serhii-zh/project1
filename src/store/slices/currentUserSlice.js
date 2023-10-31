@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { authInstance, publicInstance } from '../../services/axiosInstances';
 
 export const logInUser = createAsyncThunk(
   'logIn/logInUser',
   async (userData) => {
-    const logInUrl = 'https://demo-api.apiko.academy/api/auth/login';
-
     try {
-      const { data } = await axios.post(logInUrl, userData);
-      localStorage.setItem('currentUser', JSON.stringify(data.token)); // add data to local storage
+      const { data } = await publicInstance.post('/auth/login', userData);
+      localStorage.setItem('currentUser', JSON.stringify(data.token));
 
       return data;
     } catch (err) {
@@ -20,10 +18,8 @@ export const logInUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   'registration/registerUser',
   async (userData) => {
-    const registerUrl = 'https://demo-api.apiko.academy/api/auth/register';
-
     try {
-      const { data } = await axios.post(registerUrl, userData);
+      const { data } = await publicInstance.post('/auth/register', userData);
       localStorage.setItem('currentUser', JSON.stringify(data.token)); // add data to local storage
 
       return data;
@@ -35,17 +31,9 @@ export const registerUser = createAsyncThunk(
 
 export const getAccountData = createAsyncThunk(
   'account/getAccountData',
-  async (userToken) => {
-    const getAccountDataUrl = 'https://demo-api.apiko.academy/api/account';
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        accept: 'application/json',
-      },
-    };
-
+  async () => {
     try {
-      const { data } = await axios.get(getAccountDataUrl, config);
+      const { data } = await authInstance.get('/account');
 
       return data;
     } catch (err) {
@@ -66,7 +54,7 @@ export const currentUserSlice = createSlice({
   reducers: {
     logOut(state) {
       state.data = null;
-      localStorage.removeItem('currentUser'); // remove data from local storage
+      localStorage.removeItem('currentUser');
     },
   },
   extraReducers: (builder) => {
@@ -115,7 +103,6 @@ export const currentUserSlice = createSlice({
 
 export const currentUser = (state) => state.currentUser.data;
 export const currentUserIsLoading = (state) => state.currentUser.isLoading;
-export const token = () => JSON.parse(localStorage.getItem('currentUser'));
 
 export const { logOut } = currentUserSlice.actions;
 export default currentUserSlice.reducer;
