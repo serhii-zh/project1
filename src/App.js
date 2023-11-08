@@ -1,9 +1,15 @@
 import './App.css';
-import HomePage from './components/HomePage/HomePage';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import MainContainer from './containers/MainContainer/MainContainer';
 
 function App() {
   return (
-    <HomePage />
+    <>
+      <Header />
+      <MainContainer />
+      <Footer />
+    </>
   );
 }
 

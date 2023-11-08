@@ -1,0 +1,7 @@
+.products {
+    display: flex;
+    flex-direction: column;
+    width: 55rem;
+    height: 100%;
+  }
+  
