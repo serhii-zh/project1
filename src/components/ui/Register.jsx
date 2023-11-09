@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styles from '../../styles/components/ui/Register.module.css';
-import RegisterModal from '../../features/RegisterModal';
+import { RegisterModal } from '../../features/RegisterModal';
 import { NavLink } from 'react-router-dom';
 
-const Register = () => {
+export const Register = () => {
   const [isShown, setIsShown] = useState(false);
 
   const handleClick = (isShown) => {
@@ -19,5 +19,3 @@ const Register = () => {
     </>
   );
 };
-
-export default Register;

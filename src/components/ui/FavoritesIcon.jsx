@@ -2,7 +2,7 @@ import styles from '../../styles/components/ui/FavoritesIcon.module.css';
 import heartWhite from '../../images/heart_white.png';
 import { Link } from 'react-router-dom';
 
-const FavoritesIcon = () => {
+export const FavoritesIcon = () => {
   return (
     <Link to='/settings/favorites'>
       <img
@@ -13,5 +13,3 @@ const FavoritesIcon = () => {
     </Link>
   );
 };
-
-export default FavoritesIcon;

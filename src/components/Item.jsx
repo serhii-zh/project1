@@ -1,7 +1,7 @@
 import styles from '../styles/components/Item.module.css';
 import { useState } from 'react';
-import ItemPopup from '../features/ItemPopup';
-import StyledFavoritesButton from './ui/StyledFavoritesButton';
+import { ItemPopup } from '../features/ItemPopup';
+import { StyledFavoritesButton } from './ui/StyledFavoritesButton';
 import { useDispatch } from 'react-redux';
 import { modifyFavoriteStatus } from '../store/slices/productsSlice';
 import {
@@ -9,7 +9,7 @@ import {
   removeFromFavorites,
 } from '../store/thunks/productsThunks';
 
-const Item = ({ item }) => {
+export const Item = ({ item }) => {
   const dispatch = useDispatch();
   const [isShown, setIsShown] = useState(false);
 
@@ -48,5 +48,3 @@ const Item = ({ item }) => {
     </>
   );
 };
-
-export default Item;

@@ -1,11 +1,11 @@
 import { currentUser } from '../../store/slices/currentUserSlice';
 import showOptions from '../../images/down_smbl.png';
 import styles from '../../styles/components/ui/UserBlock.module.css';
-import UserModal from '../../features/UserModal';
+import { UserModal } from '../../features/UserModal';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-const UserBlock = () => {
+export const UserBlock = () => {
   const userData = useSelector(currentUser);
   const [isShown, setIsShown] = useState(false);
 
@@ -43,5 +43,3 @@ const UserBlock = () => {
     </div>
   );
 };
-
-export default UserBlock;

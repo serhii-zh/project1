@@ -1,7 +1,7 @@
 import styles from '../styles/components/NoResultsMsg.module.css';
 import { useEffect, useState } from 'react';
 
-const NoResultsMsg = () => {
+export const NoResultsMsg = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowNoResults(true);
@@ -19,5 +19,3 @@ const NoResultsMsg = () => {
     <div className={styles.notFoundMessage}>{showNoResults && message}</div>
   );
 };
-
-export default NoResultsMsg;

@@ -1,6 +1,6 @@
 import styles from '../styles/components/QuantitySelector.module.css';
 
-const QuantitySelector = ({ itemsNumber, setItemsNumber }) => {
+export const QuantitySelector = ({ itemsNumber, setItemsNumber }) => {
   const increaseBy1 = () => {
     setItemsNumber(itemsNumber + 1);
   };
@@ -17,5 +17,3 @@ const QuantitySelector = ({ itemsNumber, setItemsNumber }) => {
     </div>
   );
 };
-
-export default QuantitySelector;

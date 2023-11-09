@@ -2,7 +2,7 @@ import styles from '../styles/components/FormComponent.module.css';
 import eye from '../images/eye.png';
 import crossedEye from '../images/crossed_eye.png';
 
-const FormComponent = ({ fields, showPassword, submitFormData }) => {
+export const FormComponent = ({ fields, showPassword, submitFormData }) => {
   return (
     <form
       className={styles.form}
@@ -42,5 +42,3 @@ const FormComponent = ({ fields, showPassword, submitFormData }) => {
     </form>
   );
 };
-
-export default FormComponent;

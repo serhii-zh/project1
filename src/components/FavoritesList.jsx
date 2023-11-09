@@ -3,9 +3,9 @@ import styles from '../styles/components/FavoritesList.module.css';
 import { favoriteItems } from '../store/slices/productsSlice';
 import { getFavorites } from '../store/thunks/productsThunks';
 import { useEffect } from 'react';
-import Item from './Item';
+import { Item } from './Item';
 
-const FavoritesList = () => {
+export const FavoritesList = () => {
   const favorites = useSelector(favoriteItems);
   const dispatch = useDispatch();
 
@@ -27,5 +27,3 @@ const FavoritesList = () => {
     </ul>
   );
 };
-
-export default FavoritesList;

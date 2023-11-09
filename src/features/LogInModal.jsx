@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logInUser } from '../store/thunks/userThunks';
 import { NavLink } from 'react-router-dom';
-import FormComponent from '../components/FormComponent';
+import { FormComponent } from '../components/FormComponent';
 
-const LogInModal = ({ isShown, handleClose }) => {
+export const LogInModal = ({ isShown, handleClose }) => {
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
@@ -138,5 +138,3 @@ const LogInModal = ({ isShown, handleClose }) => {
 
   return createPortal(content, document.getElementById('portal'));
 };
-
-export default LogInModal;

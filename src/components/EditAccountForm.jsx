@@ -1,9 +1,9 @@
-import FormComponent from './FormComponent';
+import { FormComponent } from './FormComponent';
 import styles from '../styles/components/EditAccountForm.module.css';
 import { currentUser } from '../store/slices/currentUserSlice';
 import { useState } from 'react';
 
-const EditAccountForm = () => {
+export const EditAccountForm = () => {
   const [formData, setFormData] = useState({});
 
   const showLabel = (evt) => {
@@ -172,5 +172,3 @@ const EditAccountForm = () => {
     </div>
   );
 };
-
-export default EditAccountForm;

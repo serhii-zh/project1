@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,5 +30,3 @@ export const LoadMoreButton = styled(StyledButton)`
     color: white;
   }
 `;
-
-export default StyledButton;

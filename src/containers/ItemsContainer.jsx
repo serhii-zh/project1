@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Item from '../components/Item';
+import { Item } from '../components/Item';
 import styles from '../styles/containers/ItemsContainer.module.css';
 import { useEffect, useState } from 'react';
 import {
@@ -16,11 +16,11 @@ import {
   findProducts,
   fetchProductsByCategoryId,
 } from '../store/thunks/productsThunks';
-import NoResultsMsg from '../components/NoResultsMsg';
-import Loader from '../components/ui/Loader';
+import { NoResultsMsg } from '../components/NoResultsMsg';
 import { LoadMoreButton } from '../components/ui/StyledButton';
+import { Loader } from '../components/ui/Loader';
 
-const ItemsContainer = () => {
+export const ItemsContainer = () => {
   const dispatch = useDispatch();
   const items = useSelector(products);
   const offset = useSelector(offsetValue);
@@ -98,5 +98,3 @@ const ItemsContainer = () => {
 
   return content;
 };
-
-export default ItemsContainer;

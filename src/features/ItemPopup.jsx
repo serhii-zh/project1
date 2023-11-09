@@ -1,11 +1,11 @@
 import { createPortal } from 'react-dom';
 import styles from '../styles/features/ItemPopup.module.css';
 import close from '../images/close.png';
-import QuantitySelector from '../components/QuantitySelector';
+import { QuantitySelector } from '../components/QuantitySelector';
 import { useState, useEffect } from 'react';
-import StyledButton from '../components/ui/StyledButton';
+import { StyledButton } from '../components/ui/StyledButton';
 
-const ItemPopup = ({
+export const ItemPopup = ({
   isShown,
   handleFavoriteClick,
   handleClose,
@@ -61,9 +61,7 @@ const ItemPopup = ({
             <div className={styles.addButtons}>
               <StyledButton>ADD TO CART</StyledButton>
 
-              <StyledButton
-                onClick={() => handleFavoriteClick(item.id)}
-              >
+              <StyledButton onClick={() => handleFavoriteClick(item.id)}>
                 {item.favorite ? 'REMOVE FROM FAVORITES' : 'ADD TO FAVORITES'}
               </StyledButton>
             </div>
@@ -75,5 +73,3 @@ const ItemPopup = ({
   );
   return createPortal(content, document.getElementById('portal'));
 };
-
-export default ItemPopup;
