@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../store/slices/currentUserSlice';
 
-const UserModal = ({ userData, isShown, handleClose }) => {
+export const UserModal = ({ userData, isShown, handleClose }) => {
   const dispatch = useDispatch();
   const userFullName = userData.fullName;
   const userEmail = userData.email;
@@ -43,5 +43,3 @@ const UserModal = ({ userData, isShown, handleClose }) => {
 
   return createPortal(content, document.getElementById('portal'));
 };
-
-export default UserModal;

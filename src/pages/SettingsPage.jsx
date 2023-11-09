@@ -1,11 +1,11 @@
 import styles from '../styles/pages/SettingsPage.module.css';
 import { currentUser } from '../store/slices/currentUserSlice';
 import { getAccountData } from '../store/thunks/userThunks';
-import SettingsContainer from '../containers/SettingsContainer';
+import { SettingsContainer } from '../containers/SettingsContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-const SettingsPage = () => {
+export const SettingsPage = () => {
   const dispatch = useDispatch();
   const userData = useSelector(currentUser);
 
@@ -30,5 +30,3 @@ const SettingsPage = () => {
     </div>
   );
 };
-
-export default SettingsPage;

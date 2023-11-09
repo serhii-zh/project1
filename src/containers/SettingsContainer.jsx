@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import styles from '../styles/containers/SettingsContainer.module.css';
 import { NavLink, Routes, Route, useLocation } from 'react-router-dom';
-import EditAccount from '../components/EditAccountForm';
-import FavoritesList from '../components/FavoritesList';
+import { EditAccountForm } from '../components/EditAccountForm';
+import { FavoritesList } from '../components/FavoritesList';
 
-const SettingsContainer = () => {
+export const SettingsContainer = () => {
   const [editFocused, setEditFocused] = useState(false);
   const [ordersFocused, setOrdersFocused] = useState(false);
   const [favoritesFocused, setFavoritesFocused] = useState(false);
@@ -59,7 +59,7 @@ const SettingsContainer = () => {
       </nav>
       <div className={styles.optionContent}>
         <Routes>
-          <Route path='edit' element={<EditAccount />} />
+          <Route path='edit' element={<EditAccountForm />} />
           <Route path='orders' element={<div>orders</div>} />
           <Route path='favorites' element={<FavoritesList />} />
         </Routes>
@@ -69,5 +69,3 @@ const SettingsContainer = () => {
 
   return content;
 };
-
-export default SettingsContainer;

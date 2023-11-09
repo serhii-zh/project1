@@ -1,16 +1,16 @@
-import FavoritesIcon from './ui/FavoritesIcon';
-import ShoppingCart from './ui/ShoppingCart';
+import { FavoritesIcon } from './ui/FavoritesIcon';
+import { ShoppingCart } from './ui/ShoppingCart';
 import styles from '../styles/components/Header.module.css';
-import Logo from './ui/Logo';
+import { Logo } from './ui/Logo';
 import { currentUser } from '../store/slices/currentUserSlice';
-import RegisterLogin from './ui/RegisterLogin';
-import UserBlock from './ui/UserBlock';
+import { RegisterLogin } from './ui/RegisterLogin';
+import { UserBlock } from './ui/UserBlock';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userToken } from '../services/axiosInstances';
 import { getAccountData } from '../store/thunks/userThunks';
 
-const Header = () => {
+export const Header = () => {
   const dispatch = useDispatch();
   const userData = useSelector(currentUser);
 
@@ -34,5 +34,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

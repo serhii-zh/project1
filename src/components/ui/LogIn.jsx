@@ -1,9 +1,9 @@
 import styles from '../../styles/components/ui/LogIn.module.css';
 import { useState } from 'react';
-import LogInModal from '../../features/LogInModal';
+import { LogInModal } from '../../features/LogInModal';
 import { NavLink } from 'react-router-dom';
 
-const LogIn = () => {
+export const LogIn = () => {
   const [isShown, setIsShown] = useState(false);
 
   const handleClick = (isShown) => {
@@ -18,5 +18,3 @@ const LogIn = () => {
     </>
   );
 };
-
-export default LogIn;

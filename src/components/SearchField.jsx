@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
 import { searchKeywords } from '../store/slices/productsSlice';
 
-const SearchField = () => {
+export const SearchField = () => {
   const dispatch = useDispatch();
   const keywords = useSelector(searchKeywords);
 
@@ -66,5 +66,3 @@ const SearchField = () => {
     />
   );
 };
-
-export default SearchField;

@@ -3,7 +3,7 @@ import active from '../../images/heart_active.png';
 import inactive from '../../images/heart_inactive.png';
 import hover from '../../images/heart_hover.png';
 
-const StyledFavoritesButton = styled.a`
+export const StyledFavoritesButton = styled.a`
   background-color: #ffffff;
   background-image: url('${({ $favorite }) =>
     $favorite ? active : inactive}');
@@ -24,5 +24,3 @@ const StyledFavoritesButton = styled.a`
     background-image: url('${hover}');
   }
 `;
-
-export default StyledFavoritesButton;

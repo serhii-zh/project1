@@ -8,7 +8,7 @@ import {
 } from '../store/slices/productsSlice';
 import { getCategoriesList } from '../store/thunks/categoriesThunks,';
 
-const CategoriesDropdown = () => {
+export const CategoriesDropdown = () => {
   const dispatch = useDispatch();
   const categories = useSelector(categoriesList);
 
@@ -45,5 +45,3 @@ const CategoriesDropdown = () => {
     </select>
   );
 };
-
-export default CategoriesDropdown;

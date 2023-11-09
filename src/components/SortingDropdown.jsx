@@ -1,11 +1,8 @@
 import { useDispatch } from 'react-redux';
-import {
-  changeSortBy,
-  clearData,
-} from '../store/slices/productsSlice';
+import { changeSortBy, clearData } from '../store/slices/productsSlice';
 import styles from '../styles/components/SortingDropdown.module.css';
 
-const SortingDropdown = () => {
+export const SortingDropdown = () => {
   const dispatch = useDispatch();
 
   const handleChange = (evt) => {
@@ -31,5 +28,3 @@ const SortingDropdown = () => {
     </select>
   );
 };
-
-export default SortingDropdown;

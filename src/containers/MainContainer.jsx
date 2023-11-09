@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
-import ProductsPage from '../pages/ProductsPage';
-import SettingsPage from '../pages/SettingsPage';
+import { ProductsPage } from '../pages/ProductsPage';
+import { SettingsPage } from '../pages/SettingsPage';
 import styles from '../styles/containers/MainContainer.module.css';
 
-const MainContainer = () => {
+export const MainContainer = () => {
   return (
     <main className={styles.main}>
       <Routes>
@@ -14,5 +14,3 @@ const MainContainer = () => {
     </main>
   );
 };
-
-export default MainContainer;

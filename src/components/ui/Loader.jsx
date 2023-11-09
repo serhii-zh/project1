@@ -1,7 +1,7 @@
 import styles from '../../styles/components/ui/Loader.module.css';
 import loader from '../../images/loader.gif';
 
-const Loader = () => {
+export const Loader = () => {
   const content = (
     <>
       <div className={styles.blurBg}></div>
@@ -10,5 +10,3 @@ const Loader = () => {
   );
   return content;
 };
-
-export default Loader;
