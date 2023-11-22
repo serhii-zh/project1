@@ -15,7 +15,7 @@ import hFavoritesImg from '../images/heart_white.png';
 import hCartImg from '../images/cart_white.png';
 
 import { StyledLogo } from './ui/StyledLogo';
-import { StyledHeaderIcon } from './ui/StyledHeaderIcon';
+import { StyledIcon } from './ui/StyledIcon';
 
 import { RegisterLogin } from './ui/RegisterLogin';
 import { UserBlock } from './ui/UserBlock';
@@ -54,12 +54,12 @@ export const Header = () => {
       </div>
       <div className={styles.shoppingLoggingBlock}>
         <div className={styles.favoritesCartBlock}>
-          <StyledHeaderIcon
+          <StyledIcon
             src={hFavoritesImg}
             alt='Favorites'
             onClick={handleFavoritesClick}
           />
-          <StyledHeaderIcon
+          <StyledIcon
             src={hCartImg}
             alt='Shopping Cart'
             onClick={handleShoppingCartClick}

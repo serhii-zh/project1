@@ -1,0 +1,49 @@
+.shoppingCartPage {
+  width: 70%;
+  min-height: 40.5rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+
+  .pageTitle {
+    margin: 69px 0 32px 39px;
+  }
+
+  .cartContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 34px 0 37px;
+  }
+}
+
+.cartContainer {
+  .addedItems {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 30rem;
+    overflow-y: scroll;
+  }
+
+  .orderInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+  }
+}
+
+.orderInfo {
+  .customerInfo {
+  }
+
+  .totalInfo {
+  }
+
+  .orderButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+}

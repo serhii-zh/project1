@@ -1,0 +1,39 @@
+.shoppingCartItem {
+  border: 1px solid #eceef0;
+  width: 25rem;
+  min-height: 8rem;
+  box-sizing: border-box;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  .imageBlock {
+    aspect-ratio: 1 / 1;
+  }
+
+  .mainBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    border-right: 1px solid #eceef0;
+  }
+}
+
+.mainBlock {
+  .itemTitle {
+    margin: 0;
+    margin-bottom: 30px;
+  }
+
+  .itemOptions {
+    display: flex;
+    align-items: center;
+  }
+}
