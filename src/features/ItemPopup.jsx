@@ -4,6 +4,7 @@ import close from '../images/close.png';
 import { QuantitySelector } from '../components/QuantitySelector';
 import { useState, useEffect } from 'react';
 import { StyledButton } from '../components/ui/StyledButton';
+import { useLocalStorageCart } from '../hooks/useLocalStorageCart';
 
 export const ItemPopup = ({
   isShown,
@@ -11,7 +12,9 @@ export const ItemPopup = ({
   handleClose,
   item,
 }) => {
+  const [itemsInCart, addToCart, removeFromCart] = useLocalStorageCart();
   const [itemsNumber, setItemsNumber] = useState(1);
+  const isInCart = itemsInCart.some((e) => e.id === item.id);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -59,13 +62,19 @@ export const ItemPopup = ({
           </div>
           <div className={styles.buttons}>
             <div className={styles.addButtons}>
-              <StyledButton>ADD TO CART</StyledButton>
+              <StyledButton
+                onClick={() =>
+                  isInCart ? removeFromCart(item.id) : addToCart(item)
+                }
+              >
+                {isInCart ? 'ADDED TO CART' : 'ADD TO CART'}
+              </StyledButton>
 
               <StyledButton onClick={() => handleFavoriteClick(item.id)}>
                 {item.favorite ? 'ADDED TO FAVORITES' : 'ADD TO FAVORITES'}
               </StyledButton>
             </div>
-            <StyledButton $orange='true'>BUY NOW</StyledButton>
+            <StyledButton $orange={true}>BUY NOW</StyledButton>
           </div>
         </div>
       </div>

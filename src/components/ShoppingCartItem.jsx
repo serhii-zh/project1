@@ -4,21 +4,19 @@ import { QuantitySelector } from './QuantitySelector';
 import { StyledIcon } from './ui/StyledIcon';
 import trashBin from '../images/bin.png';
 
-export const ShoppingCartItem = () => {
+export const ShoppingCartItem = ({ item, removeFromCart }) => {
   const [itemsNumber, setItemsNumber] = useState(1);
-
-  const handleBinClick = () => {
-    console.log('bin click');
-  };
 
   return (
     <article className={styles.shoppingCartItem}>
-      <div className={styles.imageBlock}>imageBlock</div>
+      <div className={styles.imageBlock}>
+        <img className={styles.itemImage} src={item.picture} alt={item.title} />
+      </div>
 
       <div className={styles.mainBlock}>
-        <h4 className={styles.itemTitle}>title</h4>
+        <h4 className={styles.itemTitle}>{item.title}</h4>
         <div className={styles.itemOptions}>
-          <StyledIcon src={trashBin} onClick={handleBinClick} />
+          <StyledIcon src={trashBin} onClick={() => removeFromCart(item.id)} />
           <QuantitySelector
             itemsNumber={itemsNumber}
             setItemsNumber={setItemsNumber}

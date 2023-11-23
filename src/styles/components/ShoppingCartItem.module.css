@@ -26,10 +26,20 @@
   }
 }
 
+.imageBlock {
+  .itemImage {
+    height: 100px;
+    width: 100px;
+  }
+}
 .mainBlock {
   .itemTitle {
     margin: 0;
     margin-bottom: 30px;
+    overflow: hidden;
+    width: 14rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .itemOptions {

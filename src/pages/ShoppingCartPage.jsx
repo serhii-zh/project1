@@ -1,8 +1,11 @@
 import styles from '../styles/pages/ShoppingCartPage.module.css';
 import { ShoppingCartItem } from '../components/ShoppingCartItem';
 import { StyledButton } from '../components/ui/StyledButton';
+import { useLocalStorageCart } from '../hooks/useLocalStorageCart';
 
 export const ShoppingCartPage = () => {
+  const [itemsInCart, addToCart, removeFromCart] = useLocalStorageCart();
+
   const handleConfirmPurchase = () => {
     console.log('confirm');
   };
@@ -16,8 +19,13 @@ export const ShoppingCartPage = () => {
       <h2 className={styles.pageTitle}>My Cart</h2>
       <div className={styles.cartContainer}>
         <div className={styles.addedItems}>
-          <ShoppingCartItem />
-          <ShoppingCartItem />
+          {itemsInCart.map((item) => (
+            <ShoppingCartItem
+              key={item.id}
+              item={item}
+              removeFromCart={removeFromCart}
+            />
+          ))}
         </div>
         <div className={styles.orderInfo}>
           <div className={styles.customerInfo}>form with customer data</div>
