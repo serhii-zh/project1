@@ -3,5 +3,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 39rem;
+  min-height: 40.5rem;
+  background-color: #f8f8f8;
 }
