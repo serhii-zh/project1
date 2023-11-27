@@ -22,7 +22,7 @@
     flex-direction: column;
     width: 60%;
     height: 30rem;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .orderInfo {
@@ -30,20 +30,43 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    border-left: 1px solid #dedee0;
     width: 40%;
   }
 }
 
 .orderInfo {
   .customerInfo {
+    display: flex;
   }
 
   .totalInfo {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
   }
 
   .orderButtons {
     display: flex;
     flex-direction: column;
     gap: 18px;
+  }
+}
+
+.totalInfo {
+  .totalEntry {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .totalEntry > div:first-child {
+    color: #707070;
+    font-weight: bold;
+  }
+
+  .totalEntry > div:last-child {
+    width: 30%;
+    display: flex;
+    justify-content: flex-start;
   }
 }

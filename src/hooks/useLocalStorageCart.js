@@ -11,18 +11,18 @@ export const useLocalStorageCart = (initialValue = []) => {
     setItemsInCart(newValue);
   };
 
-  function addToCart(item) {
-    const newArray = [...itemsInCart, item];
+  const addToCart = (item, itemQty) => {
+    const newArray = [...itemsInCart, { item, itemQty }];
     setStoredArray(newArray);
-  }
+  };
 
   const removeFromCart = (itemId) => {
     const newArray = [...itemsInCart];
 
-    const index = newArray.findIndex((e) => e.id === itemId);
+    const index = newArray.findIndex((e) => e.item.id === itemId);
     newArray.splice(index, 1);
     setStoredArray(newArray);
   };
 
-  return [itemsInCart, addToCart, removeFromCart];
+  return { itemsInCart, addToCart, removeFromCart };
 };

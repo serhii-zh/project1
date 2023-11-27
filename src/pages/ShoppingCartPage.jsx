@@ -4,7 +4,10 @@ import { StyledButton } from '../components/ui/StyledButton';
 import { useLocalStorageCart } from '../hooks/useLocalStorageCart';
 
 export const ShoppingCartPage = () => {
-  const [itemsInCart, addToCart, removeFromCart] = useLocalStorageCart();
+  const { itemsInCart, removeFromCart } = useLocalStorageCart();
+  const totalPrice = itemsInCart.reduce((total, itemEntry) => {
+    return total + itemEntry.item.price * itemEntry.itemQty;
+  }, 0);
 
   const handleConfirmPurchase = () => {
     console.log('confirm');
@@ -19,10 +22,10 @@ export const ShoppingCartPage = () => {
       <h2 className={styles.pageTitle}>My Cart</h2>
       <div className={styles.cartContainer}>
         <div className={styles.addedItems}>
-          {itemsInCart.map((item) => (
+          {itemsInCart.map((cartItem) => (
             <ShoppingCartItem
-              key={item.id}
-              item={item}
+              key={cartItem.item.id}
+              cartItem={cartItem}
               removeFromCart={removeFromCart}
             />
           ))}
@@ -30,8 +33,14 @@ export const ShoppingCartPage = () => {
         <div className={styles.orderInfo}>
           <div className={styles.customerInfo}>form with customer data</div>
           <div className={styles.totalInfo}>
-            <div># of items</div>
-            <div>total price</div>
+            <div className={styles.totalEntry}>
+              <div>Items:</div>
+              <div>{itemsInCart.length}</div>
+            </div>
+            <div className={styles.totalEntry}>
+              <div>Total:</div>
+              <div>${totalPrice}</div>
+            </div>
           </div>
           <div className={styles.orderButtons}>
             <StyledButton $orange={true} onClick={handleConfirmPurchase}>

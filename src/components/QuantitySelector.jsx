@@ -1,18 +1,18 @@
 import styles from '../styles/components/QuantitySelector.module.css';
 
-export const QuantitySelector = ({ itemsNumber, setItemsNumber }) => {
+export const QuantitySelector = ({ itemQty, setItemQty }) => {
   const increaseBy1 = () => {
-    setItemsNumber(itemsNumber + 1);
+    setItemQty(itemQty + 1);
   };
 
   const decreaseBy1 = () => {
-    itemsNumber > 1 && setItemsNumber(itemsNumber - 1);
+    itemQty > 1 && setItemQty(itemQty - 1);
   };
 
   return (
     <div className={styles.counter}>
       <button onClick={() => decreaseBy1()}>-</button>
-      <p>{itemsNumber}</p>
+      <p>{itemQty}</p>
       <button onClick={() => increaseBy1()}>+</button>
     </div>
   );

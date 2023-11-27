@@ -12,9 +12,9 @@ export const ItemPopup = ({
   handleClose,
   item,
 }) => {
-  const [itemsInCart, addToCart, removeFromCart] = useLocalStorageCart();
-  const [itemsNumber, setItemsNumber] = useState(1);
-  const isInCart = itemsInCart.some((e) => e.id === item.id);
+  const { itemsInCart, addToCart, removeFromCart } = useLocalStorageCart();
+  const [itemQty, setItemQty] = useState(1);
+  const isInCart = itemsInCart.some((e) => e.item.id === item.id);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -46,16 +46,14 @@ export const ItemPopup = ({
               <div className={styles.price}>
                 PRICE: <span>${item.price}</span>
               </div>
-              <QuantitySelector
-                itemsNumber={itemsNumber}
-                setItemsNumber={setItemsNumber}
-              />
+              <QuantitySelector itemQty={itemQty} setItemQty={setItemQty} />
               <div>
                 <div className={styles.totalItems}>
-                  Items: <span>{itemsNumber}</span>
+                  Items: <span>{itemQty}</span>
                 </div>
                 <div className={styles.totalPrice}>
-                  Total: <span>${itemsNumber * item.price}</span>
+                  Total:
+                  <span>${itemQty * item.price}</span>
                 </div>
               </div>
             </div>
@@ -64,7 +62,7 @@ export const ItemPopup = ({
             <div className={styles.addButtons}>
               <StyledButton
                 onClick={() =>
-                  isInCart ? removeFromCart(item.id) : addToCart(item)
+                  isInCart ? removeFromCart(item.id) : addToCart(item, itemQty)
                 }
               >
                 {isInCart ? 'ADDED TO CART' : 'ADD TO CART'}
