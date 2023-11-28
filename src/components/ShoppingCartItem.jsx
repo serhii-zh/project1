@@ -4,8 +4,18 @@ import { QuantitySelector } from './QuantitySelector';
 import { StyledIcon } from './ui/StyledIcon';
 import trashBin from '../images/bin.png';
 
-export const ShoppingCartItem = ({ cartItem, removeFromCart }) => {
+export const ShoppingCartItem = ({
+  cartItem,
+  removeFromCart,
+  onQtyUpdated,
+}) => {
   const [itemQty, setItemQty] = useState(cartItem.itemQty);
+
+  // useCallback
+  const updateQty = (qty) => {
+    setItemQty(qty);
+    onQtyUpdated(cartItem.item.id, qty);
+  };
 
   return (
     <article className={styles.shoppingCartItem}>
@@ -24,7 +34,7 @@ export const ShoppingCartItem = ({ cartItem, removeFromCart }) => {
             src={trashBin}
             onClick={() => removeFromCart(cartItem.item.id)}
           />
-          <QuantitySelector itemQty={itemQty} setItemQty={setItemQty} />
+          <QuantitySelector itemQty={itemQty} setItemQty={updateQty} />
         </div>
       </div>
 

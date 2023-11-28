@@ -17,12 +17,16 @@ export const useLocalStorageCart = (initialValue = []) => {
   };
 
   const removeFromCart = (itemId) => {
-    const newArray = [...itemsInCart];
-
-    const index = newArray.findIndex((e) => e.item.id === itemId);
-    newArray.splice(index, 1);
-    setStoredArray(newArray);
+    setStoredArray(itemsInCart.filter(({ item }) => item.id !== itemId));
   };
 
-  return { itemsInCart, addToCart, removeFromCart };
+  const updateQty = (itemId, itemQty) => {
+    const updatedItems = itemsInCart.map((obj) =>
+      obj.item.id === itemId ? { item: obj.item, itemQty } : obj
+    );
+
+    setStoredArray(updatedItems);
+  };
+
+  return { itemsInCart, addToCart, removeFromCart, updateQty };
 };

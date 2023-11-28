@@ -4,7 +4,7 @@ import { StyledButton } from '../components/ui/StyledButton';
 import { useLocalStorageCart } from '../hooks/useLocalStorageCart';
 
 export const ShoppingCartPage = () => {
-  const { itemsInCart, removeFromCart } = useLocalStorageCart();
+  const { itemsInCart, removeFromCart, updateQty } = useLocalStorageCart();
   const totalPrice = itemsInCart.reduce((total, itemEntry) => {
     return total + itemEntry.item.price * itemEntry.itemQty;
   }, 0);
@@ -26,6 +26,7 @@ export const ShoppingCartPage = () => {
             <ShoppingCartItem
               key={cartItem.item.id}
               cartItem={cartItem}
+              onQtyUpdated={updateQty}
               removeFromCart={removeFromCart}
             />
           ))}
