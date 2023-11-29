@@ -20,6 +20,7 @@ import { StyledIcon } from './ui/StyledIcon';
 
 import { RegisterLogin } from './ui/RegisterLogin';
 import { UserBlock } from './ui/UserBlock';
+import { QtyIcon } from './QtyIcon';
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -70,11 +71,12 @@ export const Header = () => {
               alt='Shopping Cart'
               onClick={handleShoppingCartClick}
             />
-            {itemsInCart.length !== 0 && (
+            <QtyIcon quantity={itemsInCart.length} />
+            {/* {itemsInCart.length !== 0 && (
               <span className={styles.itemsInCartQty}>
                 {itemsInCart.length}
               </span>
-            )}
+            )} */}
           </div>
         </div>
         {userData ? <UserBlock /> : <RegisterLogin />}

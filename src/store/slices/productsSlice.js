@@ -15,6 +15,7 @@ const initialState = {
   selectedCategory: null,
   sortBy: 'latest',
   favorites: [],
+  itemsInCart: [],
 };
 
 export const productsSlice = createSlice({
@@ -48,6 +49,28 @@ export const productsSlice = createSlice({
       });
       itemToBeModified.favorite = !itemToBeModified.favorite;
       state.favorites.splice(favoriteToBeModified, 1);
+    },
+    addToCart: (state, action) => {
+      // if (state.itemsInCart) {
+      state.itemsInCart.push(action.payload);
+      // } else {
+      //   state.itemsInCart = [action.payload];
+      // }
+    },
+    removeFromCart: (state, action) => {
+      const newArray = state.itemsInCart.filter(
+        ({ item }) => item.id !== action.payload
+      );
+      state.itemsInCart = newArray;
+    },
+    updateItemQty: (state, action) => {
+      const updatedItem = state.itemsInCart.find(
+        (itemObj) => itemObj.item.id === action.payload.itemId
+      );
+      updatedItem.itemQty = action.payload.itemQty;
+    },
+    addItemsToCart: (state, action) => {
+      state.itemsInCart = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -118,6 +141,7 @@ export const selectedCategoryId = (state) => state.products.selectedCategory;
 export const sortByValue = (state) => state.products.sortBy;
 export const productsIsLoading = (state) => state.products.isLoading;
 export const favoriteItems = (state) => state.products.favorites;
+export const getItemsInCart = (state) => state.products.itemsInCart;
 
 export const {
   clearData,
@@ -126,6 +150,10 @@ export const {
   setSelectedCategoryId,
   changeSortBy,
   modifyFavoriteStatus,
+  addToCart,
+  removeFromCart,
+  updateItemQty,
+  addItemsToCart,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

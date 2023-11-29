@@ -1,32 +1,52 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addItemsToCart,
+  addToCart,
+  getItemsInCart,
+  removeFromCart,
+  updateItemQty,
+} from '../store/slices/productsSlice';
+import { useDidUpdate } from './useDidUpdate';
 
 export const useLocalStorageCart = (initialValue = []) => {
   const key = 'cart';
-  const storedValue = JSON.parse(localStorage.getItem(key)) || initialValue;
 
-  const [itemsInCart, setItemsInCart] = useState(storedValue);
+  const dispatch = useDispatch();
+  const itemsInCart = useSelector(getItemsInCart);
 
-  const setStoredArray = (newValue) => {
-    localStorage.setItem(key, JSON.stringify(newValue));
-    setItemsInCart(newValue);
+  useEffect(() => {
+    const parsedLocalStorageArray = JSON.parse(localStorage.getItem(key)) || [];
+    dispatch(addItemsToCart(parsedLocalStorageArray));
+    // console.log(parsedLocalStorageArray);
+    // debugger;
+  }, [dispatch]);
+
+  // TODO: use useDidUpdate instead of if null ...
+  useDidUpdate(() => {
+    // TODO: remove this
+    // if (itemsInCart !== null) {
+    localStorage.setItem(key, JSON.stringify(itemsInCart));
+    // }
+    // debugger;
+  }, itemsInCart);
+
+  const add = (item, itemQty) => {
+    dispatch(addToCart({ item, itemQty }));
   };
 
-  const addToCart = (item, itemQty) => {
-    const newArray = [...itemsInCart, { item, itemQty }];
-    setStoredArray(newArray);
-  };
-
-  const removeFromCart = (itemId) => {
-    setStoredArray(itemsInCart.filter(({ item }) => item.id !== itemId));
+  const remove = (itemId) => {
+    dispatch(removeFromCart(itemId));
   };
 
   const updateQty = (itemId, itemQty) => {
-    const updatedItems = itemsInCart.map((obj) =>
-      obj.item.id === itemId ? { item: obj.item, itemQty } : obj
-    );
-
-    setStoredArray(updatedItems);
+    dispatch(updateItemQty({ itemId, itemQty }));
   };
 
-  return { itemsInCart, addToCart, removeFromCart, updateQty };
+  return {
+    itemsInCart: itemsInCart,
+    addToCart: add,
+    removeFromCart: remove,
+    updateQty,
+  };
 };
