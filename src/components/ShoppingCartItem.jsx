@@ -4,31 +4,43 @@ import { QuantitySelector } from './QuantitySelector';
 import { StyledIcon } from './ui/StyledIcon';
 import trashBin from '../images/bin.png';
 
-export const ShoppingCartItem = () => {
-  const [itemsNumber, setItemsNumber] = useState(1);
+export const ShoppingCartItem = ({
+  cartItem,
+  removeFromCart,
+  onQtyUpdated,
+}) => {
+  const [itemQty, setItemQty] = useState(cartItem.itemQty);
 
-  const handleBinClick = () => {
-    console.log('bin click');
+  // useCallback
+  const updateQty = (qty) => {
+    setItemQty(qty);
+    onQtyUpdated(cartItem.item.id, qty);
   };
 
   return (
     <article className={styles.shoppingCartItem}>
-      <div className={styles.imageBlock}>imageBlock</div>
+      <div className={styles.imageBlock}>
+        <img
+          className={styles.itemImage}
+          src={cartItem.item.picture}
+          alt={cartItem.item.title}
+        />
+      </div>
 
       <div className={styles.mainBlock}>
-        <h4 className={styles.itemTitle}>title</h4>
+        <h4 className={styles.itemTitle}>{cartItem.item.title}</h4>
         <div className={styles.itemOptions}>
-          <StyledIcon src={trashBin} onClick={handleBinClick} />
-          <QuantitySelector
-            itemsNumber={itemsNumber}
-            setItemsNumber={setItemsNumber}
+          <StyledIcon
+            src={trashBin}
+            onClick={() => removeFromCart(cartItem.item.id)}
           />
+          <QuantitySelector itemQty={itemQty} setItemQty={updateQty} />
         </div>
       </div>
 
-      <div>
+      <div className={styles.priceBlock}>
         <div>Price:</div>
-        <div>000</div>
+        <div>${cartItem.item.price * itemQty}</div>
       </div>
     </article>
   );

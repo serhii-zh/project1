@@ -1,7 +1,7 @@
 .shoppingCartItem {
   border: 1px solid #eceef0;
-  width: 25rem;
-  min-height: 8rem;
+  width: 27rem;
+  min-height: 6rem;
   box-sizing: border-box;
   padding: 20px;
   margin-bottom: 20px;
@@ -19,17 +19,33 @@
   .mainBlock {
     display: flex;
     flex-direction: column;
-    width: 100%;
     height: 100%;
 
     border-right: 1px solid #eceef0;
   }
+
+  .priceBlock {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 10px;
+  }
 }
 
+.imageBlock {
+  .itemImage {
+    height: 70px;
+    width: 70px;
+  }
+}
 .mainBlock {
   .itemTitle {
     margin: 0;
     margin-bottom: 30px;
+    overflow: hidden;
+    width: 14rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .itemOptions {

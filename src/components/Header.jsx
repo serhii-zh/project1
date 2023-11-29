@@ -3,6 +3,7 @@ import styles from '../styles/components/Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocalStorageCart } from '../hooks/useLocalStorageCart';
 
 import { currentUser } from '../store/slices/currentUserSlice';
 import { clearData } from '../store/slices/productsSlice';
@@ -24,6 +25,7 @@ export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector(currentUser);
+  const { itemsInCart } = useLocalStorageCart();
 
   useEffect(() => {
     userToken && dispatch(getAccountData());
@@ -54,16 +56,26 @@ export const Header = () => {
       </div>
       <div className={styles.shoppingLoggingBlock}>
         <div className={styles.favoritesCartBlock}>
-          <StyledIcon
-            src={hFavoritesImg}
-            alt='Favorites'
-            onClick={handleFavoritesClick}
-          />
-          <StyledIcon
-            src={hCartImg}
-            alt='Shopping Cart'
-            onClick={handleShoppingCartClick}
-          />
+          <div className={styles.favorites}>
+            <StyledIcon
+              src={hFavoritesImg}
+              alt='Favorites'
+              onClick={handleFavoritesClick}
+            />
+            <span className={styles.itemsInFavoritesQty}></span>
+          </div>
+          <div className={styles.shoppingCart}>
+            <StyledIcon
+              src={hCartImg}
+              alt='Shopping Cart'
+              onClick={handleShoppingCartClick}
+            />
+            {itemsInCart.length !== 0 && (
+              <span className={styles.itemsInCartQty}>
+                {itemsInCart.length}
+              </span>
+            )}
+          </div>
         </div>
         {userData ? <UserBlock /> : <RegisterLogin />}
       </div>
