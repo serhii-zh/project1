@@ -1,16 +1,19 @@
-import { createPortal } from 'react-dom';
 import styles from '../styles/features/ItemPopup.module.css';
+import { createPortal } from 'react-dom';
 import close from '../images/close.png';
 import { QuantitySelector } from '../components/QuantitySelector';
 import { useState, useEffect } from 'react';
 import { StyledButton } from '../components/ui/StyledButton';
 import { useLocalStorageCart } from '../hooks/useLocalStorageCart';
+import tick from '../images/tick.png';
 
 export const ItemPopup = ({
   isShown,
   handleFavoriteClick,
   handleClose,
   item,
+  handleAddedToCart,
+  showAddedToCart,
 }) => {
   const { itemsInCart, addToCart, removeFromCart } = useLocalStorageCart();
   const [itemQty, setItemQty] = useState(1);
@@ -61,15 +64,37 @@ export const ItemPopup = ({
           <div className={styles.buttons}>
             <div className={styles.addButtons}>
               <StyledButton
+                $orange={isInCart}
                 onClick={() =>
-                  isInCart ? removeFromCart(item.id) : addToCart(item, itemQty)
+                  isInCart
+                    ? removeFromCart(item.id)
+                    : (addToCart(item, itemQty),
+                      handleClose(isShown),
+                      handleAddedToCart(showAddedToCart))
                 }
               >
-                {isInCart ? 'ADDED TO CART' : 'ADD TO CART'}
+                {isInCart ? (
+                  <div>
+                    ADDED TO CART
+                    <img src={tick} alt='added' className={styles.tick} />
+                  </div>
+                ) : (
+                  'ADD TO CART'
+                )}
               </StyledButton>
 
-              <StyledButton onClick={() => handleFavoriteClick(item.id)}>
-                {item.favorite ? 'ADDED TO FAVORITES' : 'ADD TO FAVORITES'}
+              <StyledButton
+                $orange={item.favorite}
+                onClick={() => handleFavoriteClick(item.id)}
+              >
+                {item.favorite ? (
+                  <div>
+                    ADDED TO FAVORITES
+                    <img src={tick} alt='added' className={styles.tick} />
+                  </div>
+                ) : (
+                  'ADD TO FAVORITES'
+                )}
               </StyledButton>
             </div>
             <StyledButton $orange={true}>BUY NOW</StyledButton>

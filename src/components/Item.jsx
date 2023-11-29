@@ -8,13 +8,19 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from '../store/thunks/productsThunks';
+import { AddedToCartModal } from './AddedToCartModal';
 
 export const Item = ({ item }) => {
   const dispatch = useDispatch();
   const [isShown, setIsShown] = useState(false);
+  const [showAddedToCart, setShowAddedToCart] = useState(false);
 
   const handleClick = (isShown) => {
     setIsShown(!isShown);
+  };
+
+  const handleAddedToCart = (showAddedToCart) => {
+    setShowAddedToCart(!showAddedToCart);
   };
 
   const handleFavoriteClick = (itemId) => {
@@ -40,9 +46,18 @@ export const Item = ({ item }) => {
       {isShown && (
         <ItemPopup
           isShown={isShown}
+          showAddedToCart={showAddedToCart}
           handleFavoriteClick={handleFavoriteClick}
           handleClose={handleClick}
+          handleAddedToCart={handleAddedToCart}
           item={item}
+        />
+      )}
+      {showAddedToCart && (
+        <AddedToCartModal
+          showAddedToCart={showAddedToCart}
+          handleClose={handleAddedToCart}
+          itemTitle={item.title}
         />
       )}
     </>

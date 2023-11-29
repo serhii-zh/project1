@@ -11,6 +11,7 @@ export const StyledButton = styled.button`
   cursor: pointer;
   width: 220px;
   height: 36px;
+  font-size: 14px;
 
   &:hover {
     background-color: ${(props) => (props.$orange ? '#fff' : '#FD7114')};
