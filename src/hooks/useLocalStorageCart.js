@@ -18,17 +18,10 @@ export const useLocalStorageCart = (initialValue = []) => {
   useEffect(() => {
     const parsedLocalStorageArray = JSON.parse(localStorage.getItem(key)) || [];
     dispatch(addItemsToCart(parsedLocalStorageArray));
-    // console.log(parsedLocalStorageArray);
-    // debugger;
   }, [dispatch]);
 
-  // TODO: use useDidUpdate instead of if null ...
   useDidUpdate(() => {
-    // TODO: remove this
-    // if (itemsInCart !== null) {
     localStorage.setItem(key, JSON.stringify(itemsInCart));
-    // }
-    // debugger;
   }, itemsInCart);
 
   const add = (item, itemQty) => {

@@ -72,11 +72,6 @@ export const Header = () => {
               onClick={handleShoppingCartClick}
             />
             <QtyIcon quantity={itemsInCart.length} />
-            {/* {itemsInCart.length !== 0 && (
-              <span className={styles.itemsInCartQty}>
-                {itemsInCart.length}
-              </span>
-            )} */}
           </div>
         </div>
         {userData ? <UserBlock /> : <RegisterLogin />}
