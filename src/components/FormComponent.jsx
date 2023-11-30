@@ -33,7 +33,7 @@ export const FormComponent = ({ fields, showPassword, submitFormData }) => {
               src={showPassword ? eye : crossedEye}
               alt='Show/hide password'
               className={styles.showPassword}
-              onClick={() => field.handleShowPassword()}
+              onClick={(evt) => field.handleShowPassword(evt)}
             />
           )}
           <p className={styles.infoMessage}>{field.message}</p>

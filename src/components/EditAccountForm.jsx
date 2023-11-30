@@ -2,54 +2,16 @@ import { FormComponent } from './FormComponent';
 import styles from '../styles/components/EditAccountForm.module.css';
 import { currentUser } from '../store/slices/currentUserSlice';
 import { useState } from 'react';
+import {
+  showLabel,
+  checkForMissingData,
+  validateInputValue,
+  handleShowPassword,
+} from '../services/formApi.js';
 
 export const EditAccountForm = () => {
   const [formData, setFormData] = useState({});
-
-  const showLabel = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const pElement = parentDiv.querySelector('p');
-    pElement.innerText = '';
-    evt.target.placeholder = '';
-    const spanEl = parentDiv.children[0].children[0];
-    spanEl.style.visibility = 'visible';
-  };
-
-  const validateInputValue = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const spanEl = parentDiv.children[0].children[0];
-    const pattern = evt.target.pattern;
-
-    if (evt.target.value.match(pattern)) {
-      setFormData({
-        ...formData,
-        [evt.target.name]: evt.target.value,
-      });
-
-      spanEl.style.color = '#707070';
-      evt.target.style.borderColor = '#707070';
-    } else {
-      spanEl.style.color = 'red';
-      evt.target.style.borderColor = 'red';
-    }
-  };
-
-  const checkForMissingData = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const spanEl = parentDiv.children[0].children[0];
-    const pElement = parentDiv.querySelector('p');
-
-    if (!evt.target.value) {
-      pElement.innerText = '';
-      pElement.innerText = 'The required data is missing';
-      pElement.style.color = 'red';
-      evt.target.style.borderColor = 'red';
-      spanEl.style.color = 'red';
-      parentDiv.append(pElement);
-    } else {
-      pElement.innerText = '';
-    }
-  };
+  const [showPassword, setShowPassword] = useState(true);
 
   const submitFormData = (evt) => {
     evt.preventDefault();
@@ -64,7 +26,7 @@ export const EditAccountForm = () => {
       pattern: '^[a-zA-Z\\s]*$',
       value: currentUser.fullName ? currentUser.fullName : undefined,
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
     },
@@ -75,7 +37,7 @@ export const EditAccountForm = () => {
       pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
       value: currentUser.email ? currentUser.email : undefined,
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
     },
@@ -86,7 +48,7 @@ export const EditAccountForm = () => {
       pattern: '^(\\+)?([0-9]){10,14}$',
       value: currentUser.phone ? currentUser.phone : undefined,
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
     },
@@ -96,7 +58,7 @@ export const EditAccountForm = () => {
       placeholder: 'Country',
       pattern: '^[a-zA-Z\\s]*$',
       value: currentUser.country ? currentUser.country : undefined,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
     },
     {
@@ -105,7 +67,7 @@ export const EditAccountForm = () => {
       placeholder: 'City',
       pattern: '^[a-zA-Z\\s]*$',
       value: currentUser.city ? currentUser.city : undefined,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
     },
     {
@@ -114,7 +76,7 @@ export const EditAccountForm = () => {
       placeholder: 'Address',
       pattern: '^[a-zA-Z0-9\\s.,/]*$',
       value: currentUser.address ? currentUser.address : undefined,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
     },
     {
@@ -128,29 +90,38 @@ export const EditAccountForm = () => {
     {
       type: 'password',
       name: 'currentPassword',
+      id: 'currentPassword',
       placeholder: 'Current password',
       pattern: '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]+$',
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
+      handleShowPassword: () =>
+        handleShowPassword('currentPassword', setShowPassword),
     },
     {
       type: 'password',
       name: 'newPassword',
+      id: 'newPassword',
       placeholder: 'New password',
       pattern: '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]+$',
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
+      handleShowPassword: () =>
+        handleShowPassword('newPassword', setShowPassword),
     },
     {
       type: 'password',
       name: 'confirmPassword',
+      id: 'confirmPassword',
       placeholder: 'Confirm password',
       pattern: '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]+$',
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
+      handleShowPassword: () =>
+        handleShowPassword('confirmPassword', setShowPassword),
     },
     {
       type: 'submit',
@@ -167,7 +138,11 @@ export const EditAccountForm = () => {
       </div>
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Change Password</div>
-        <FormComponent fields={fields2} submitFormData={submitFormData} />
+        <FormComponent
+          fields={fields2}
+          showPassword={showPassword}
+          submitFormData={submitFormData}
+        />
       </div>
     </div>
   );
