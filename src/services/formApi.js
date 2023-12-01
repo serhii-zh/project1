@@ -54,3 +54,9 @@ export const handleShowPassword = (id, setShowPassword) => {
     passwordField.type = 'password';
   }
 };
+
+// export const submitFormDataInEditAccount = (evt, formData) => {
+//   evt.preventDefault();
+
+//   console.log(formData);
+// };

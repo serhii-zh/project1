@@ -2,6 +2,7 @@ import { FormComponent } from './FormComponent';
 import styles from '../styles/components/EditAccountForm.module.css';
 import { currentUser } from '../store/slices/currentUserSlice';
 import { useState } from 'react';
+import { useSubmitForm } from '../hooks/useSubmitForm';
 import {
   showLabel,
   checkForMissingData,
@@ -10,13 +11,11 @@ import {
 } from '../services/formApi.js';
 
 export const EditAccountForm = () => {
+  const submitForm = useSubmitForm('editAccount');
+  // const submitPasswordForm = useSubmitForm('editAccountPassword');
   const [formData, setFormData] = useState({});
+  // const [passwordFormData, setPasswordFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
-
-  const submitFormData = (evt) => {
-    evt.preventDefault();
-    console.log(formData);
-  };
 
   const fields1 = [
     {
@@ -134,14 +133,17 @@ export const EditAccountForm = () => {
     <div>
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Main Information</div>
-        <FormComponent fields={fields1} submitFormData={submitFormData} />
+        <FormComponent
+          fields={fields1}
+          submitFormData={(evt) => submitForm(evt, formData)}
+        />
       </div>
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Change Password</div>
         <FormComponent
           fields={fields2}
           showPassword={showPassword}
-          submitFormData={submitFormData}
+          submitFormData={(evt) => submitForm(evt, formData)}
         />
       </div>
     </div>

@@ -2,8 +2,6 @@ import { createPortal } from 'react-dom';
 import close from '../images/close.png';
 import styles from '../styles/features/RegisterModal.module.css';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../store/thunks/userThunks';
 import { NavLink } from 'react-router-dom';
 import { FormComponent } from '../components/FormComponent';
 import {
@@ -12,11 +10,12 @@ import {
   validateInputValue,
   handleShowPassword,
 } from '../services/formApi.js';
+import { useSubmitForm } from '../hooks/useSubmitForm.js';
 
 export const RegisterModal = ({ isShown, handleClose }) => {
+  const submitForm = useSubmitForm('register');
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -24,12 +23,6 @@ export const RegisterModal = ({ isShown, handleClose }) => {
       document.body.style.overflow = 'scroll';
     };
   });
-
-  const submitFormData = (evt) => {
-    evt.preventDefault();
-    dispatch(registerUser(formData));
-    handleClose(isShown);
-  };
 
   const fields1 = [
     {
@@ -98,7 +91,9 @@ export const RegisterModal = ({ isShown, handleClose }) => {
         <FormComponent
           fields={fields1}
           showPassword={showPassword}
-          submitFormData={submitFormData}
+          submitFormData={(evt) => {
+            submitForm(evt, formData, handleClose, isShown);
+          }}
         />
       </div>
       <div className={styles.logIn}>
