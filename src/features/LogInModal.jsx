@@ -1,6 +1,6 @@
+import styles from '../styles/features/LogInModal.module.css';
 import { createPortal } from 'react-dom';
 import close from '../images/close.png';
-import styles from '../styles/features/LogInModal.module.css';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FormComponent } from '../components/FormComponent';
@@ -13,7 +13,7 @@ import {
 import { useSubmitForm } from '../hooks/useSubmitForm.js';
 
 export const LogInModal = ({ isShown, handleClose }) => {
-  const submitForm = useSubmitForm('logIn');
+  const submitForm = useSubmitForm('logInForm');
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
 
@@ -24,7 +24,7 @@ export const LogInModal = ({ isShown, handleClose }) => {
     };
   });
 
-  const fields1 = [
+  const logInFormFields = [
     {
       type: 'email',
       name: 'email',
@@ -68,7 +68,7 @@ export const LogInModal = ({ isShown, handleClose }) => {
         />
         <h3>Log In</h3>
         <FormComponent
-          fields={fields1}
+          fields={logInFormFields}
           showPassword={showPassword}
           submitFormData={(evt) => {
             submitForm(evt, formData, handleClose, isShown);

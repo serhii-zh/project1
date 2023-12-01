@@ -28,6 +28,12 @@
   cursor: pointer;
 }
 
+.register form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
 .showPassword {
   align-self: flex-end;
   width: 1rem;
@@ -48,6 +54,7 @@
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
+  z-index: 2;
 }
 
 .logIn a {

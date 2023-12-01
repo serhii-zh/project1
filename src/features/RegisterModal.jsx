@@ -13,7 +13,7 @@ import {
 import { useSubmitForm } from '../hooks/useSubmitForm.js';
 
 export const RegisterModal = ({ isShown, handleClose }) => {
-  const submitForm = useSubmitForm('register');
+  const submitForm = useSubmitForm('registerForm');
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
 
@@ -24,7 +24,7 @@ export const RegisterModal = ({ isShown, handleClose }) => {
     };
   });
 
-  const fields1 = [
+  const registerFormFields = [
     {
       type: 'text',
       name: 'fullName',
@@ -89,7 +89,7 @@ export const RegisterModal = ({ isShown, handleClose }) => {
         />
         <h3>Register</h3>
         <FormComponent
-          fields={fields1}
+          fields={registerFormFields}
           showPassword={showPassword}
           submitFormData={(evt) => {
             submitForm(evt, formData, handleClose, isShown);

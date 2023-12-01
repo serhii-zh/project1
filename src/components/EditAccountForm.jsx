@@ -9,21 +9,21 @@ import {
   validateInputValue,
   handleShowPassword,
 } from '../services/formApi.js';
+import { useSelector } from 'react-redux';
 
 export const EditAccountForm = () => {
-  const submitForm = useSubmitForm('editAccount');
-  // const submitPasswordForm = useSubmitForm('editAccountPassword');
+  const submitForm = useSubmitForm('editAccountForm');
   const [formData, setFormData] = useState({});
-  // const [passwordFormData, setPasswordFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
+  const userData = useSelector(currentUser);
 
-  const fields1 = [
+  const userInfoFormFields = [
     {
       type: 'text',
       name: 'fullName',
       placeholder: 'Full Name',
       pattern: '^[a-zA-Z\\s]*$',
-      value: currentUser.fullName ? currentUser.fullName : undefined,
+      value: userData.fullName ? userData.fullName : undefined,
       required: true,
       onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
@@ -34,7 +34,7 @@ export const EditAccountForm = () => {
       name: 'email',
       placeholder: 'Email',
       pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
-      value: currentUser.email ? currentUser.email : undefined,
+      value: userData.email ? userData.email : undefined,
       required: true,
       onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
@@ -45,7 +45,7 @@ export const EditAccountForm = () => {
       name: 'phone',
       placeholder: 'Phone',
       pattern: '^(\\+)?([0-9]){10,14}$',
-      value: currentUser.phone ? currentUser.phone : undefined,
+      value: userData.phone ? userData.phone : undefined,
       required: true,
       onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
@@ -56,7 +56,7 @@ export const EditAccountForm = () => {
       name: 'country',
       placeholder: 'Country',
       pattern: '^[a-zA-Z\\s]*$',
-      value: currentUser.country ? currentUser.country : undefined,
+      value: userData.country ? userData.country : undefined,
       onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
     },
@@ -65,7 +65,7 @@ export const EditAccountForm = () => {
       name: 'city',
       placeholder: 'City',
       pattern: '^[a-zA-Z\\s]*$',
-      value: currentUser.city ? currentUser.city : undefined,
+      value: userData.city ? userData.city : undefined,
       onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
     },
@@ -74,7 +74,7 @@ export const EditAccountForm = () => {
       name: 'address',
       placeholder: 'Address',
       pattern: '^[a-zA-Z0-9\\s.,/]*$',
-      value: currentUser.address ? currentUser.address : undefined,
+      value: userData.address ? userData.address : undefined,
       onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
     },
@@ -85,7 +85,7 @@ export const EditAccountForm = () => {
     },
   ];
 
-  const fields2 = [
+  const userPasswordFormFields = [
     {
       type: 'password',
       name: 'currentPassword',
@@ -134,14 +134,14 @@ export const EditAccountForm = () => {
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Main Information</div>
         <FormComponent
-          fields={fields1}
+          fields={userInfoFormFields}
           submitFormData={(evt) => submitForm(evt, formData)}
         />
       </div>
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Change Password</div>
         <FormComponent
-          fields={fields2}
+          fields={userPasswordFormFields}
           showPassword={showPassword}
           submitFormData={(evt) => submitForm(evt, formData)}
         />
