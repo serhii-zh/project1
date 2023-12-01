@@ -2,15 +2,20 @@ import { createPortal } from 'react-dom';
 import close from '../images/close.png';
 import styles from '../styles/features/RegisterModal.module.css';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../store/thunks/userThunks';
 import { NavLink } from 'react-router-dom';
 import { FormComponent } from '../components/FormComponent';
+import {
+  showLabel,
+  checkForMissingData,
+  validateInputValue,
+  handleShowPassword,
+} from '../services/formApi.js';
+import { useSubmitForm } from '../hooks/useSubmitForm.js';
 
 export const RegisterModal = ({ isShown, handleClose }) => {
+  const submitForm = useSubmitForm('registerForm');
   const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(true);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -19,69 +24,7 @@ export const RegisterModal = ({ isShown, handleClose }) => {
     };
   });
 
-  const showLabel = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const pElement = parentDiv.querySelector('p');
-    pElement.innerText = '';
-    evt.target.placeholder = '';
-    const spanEl = parentDiv.children[0].children[0];
-    spanEl.style.visibility = 'visible';
-  };
-
-  const validateInputValue = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const spanEl = parentDiv.children[0].children[0];
-    const pattern = evt.target.pattern;
-
-    if (evt.target.value.match(pattern)) {
-      setFormData({
-        ...formData,
-        [evt.target.name]: evt.target.value,
-      });
-
-      spanEl.style.color = '#707070';
-      evt.target.style.borderColor = '#707070';
-    } else {
-      spanEl.style.color = 'red';
-      evt.target.style.borderColor = 'red';
-    }
-  };
-
-  const checkForMissingData = (evt) => {
-    const parentDiv = evt.target.closest('div');
-    const spanEl = parentDiv.children[0].children[0];
-    const pElement = parentDiv.querySelector('p');
-
-    if (!evt.target.value) {
-      pElement.innerText = '';
-      pElement.innerText = 'The required data is missing';
-      pElement.style.color = 'red';
-      evt.target.style.borderColor = 'red';
-      spanEl.style.color = 'red';
-      parentDiv.append(pElement);
-    } else {
-      pElement.innerText = '';
-    }
-  };
-
-  const handleShowPassword = () => {
-    const passwordField = document.getElementById('password');
-    if (passwordField.type === 'password') {
-      setShowPassword(false);
-      passwordField.type = 'text';
-    } else {
-      setShowPassword(true);
-      passwordField.type = 'password';
-    }
-  };
-
-  const submitFormData = (evt) => {
-    evt.preventDefault();
-    dispatch(registerUser(formData));
-    handleClose(isShown);
-  };
-
-  const fields1 = [
+  const registerFormFields = [
     {
       type: 'text',
       name: 'fullName',
@@ -89,7 +32,7 @@ export const RegisterModal = ({ isShown, handleClose }) => {
       pattern: '^[a-zA-Z\\s]*$',
       autofocus: true,
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
     },
@@ -99,7 +42,7 @@ export const RegisterModal = ({ isShown, handleClose }) => {
       placeholder: 'Email',
       pattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
     },
@@ -109,7 +52,7 @@ export const RegisterModal = ({ isShown, handleClose }) => {
       placeholder: 'Telephone Number',
       pattern: '^(\\+)?([0-9]){10,14}$',
       required: true,
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
     },
@@ -122,10 +65,10 @@ export const RegisterModal = ({ isShown, handleClose }) => {
       required: true,
       message:
         'The password should contain 1 letter, 1 special symbol, 1 number',
-      onChange: validateInputValue,
+      onChange: (evt) => validateInputValue(evt, formData, setFormData),
       onFocus: showLabel,
       onBlur: checkForMissingData,
-      handleShowPassword,
+      handleShowPassword: () => handleShowPassword('password', setShowPassword),
     },
     {
       type: 'submit',
@@ -146,9 +89,11 @@ export const RegisterModal = ({ isShown, handleClose }) => {
         />
         <h3>Register</h3>
         <FormComponent
-          fields={fields1}
+          fields={registerFormFields}
           showPassword={showPassword}
-          submitFormData={submitFormData}
+          submitFormData={(evt) => {
+            submitForm(evt, formData, handleClose, isShown);
+          }}
         />
       </div>
       <div className={styles.logIn}>

@@ -51,11 +51,7 @@ export const productsSlice = createSlice({
       state.favorites.splice(favoriteToBeModified, 1);
     },
     addToCart: (state, action) => {
-      // if (state.itemsInCart) {
       state.itemsInCart.push(action.payload);
-      // } else {
-      //   state.itemsInCart = [action.payload];
-      // }
     },
     removeFromCart: (state, action) => {
       const newArray = state.itemsInCart.filter(
